@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: specimen
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/specimen
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mybatis:
+    table:
+      UserPermissionTableName: user_permission_id
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: Ljr2287699363
+    key-alias: mykey
