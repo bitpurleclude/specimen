@@ -15,6 +15,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
   port: 8443
+  http: 8080
   ssl:
     key-store: classpath:keystore.jks
     key-store-password: Ljr2287699363
