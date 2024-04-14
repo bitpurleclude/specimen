@@ -8,30 +8,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService , UserDetailsService {
     @Autowired
     UserMapper userMapper;
-    @Override
-    public void insertUser(User user) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    }
-   public User getUserByUsername(String username) {
+    public User getUserByUsername(String username) {
        QueryWrapper<User> query = new QueryWrapper(User.class);
        query.eq("email",username);
        return userMapper.selectOne(query);
    }
     public boolean checkHasResign(String email) {
-         return getUserByUsername(email)==null;
+         return getUserByUsername(email)!=null;
     }
-    public void insertUserByEmail(User user) {
+    @Override
+    public void insertUser(User user) {
+       user.setPassword(passwordEncoder.encode(user.getPassword()));
         userMapper.insert(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        User user=userMapper.selectOne(new QueryWrapper<User>().eq("email",username));
+        if (user==null){
+            try {
+                throw UsernameNotFoundException.class.newInstance();
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else return user;
     }
 }
