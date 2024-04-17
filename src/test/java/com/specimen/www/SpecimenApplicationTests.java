@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashMap;
 import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpecimenApplication.class)
@@ -31,7 +32,7 @@ class SpecimenApplicationTests {
     private RoleServiceImpl roleService;
     @Test
     void roleServiceTest(){
-        List<Role> allRole = roleService.getAllRole();
+        HashMap allRole = roleService.getAllRoleName();
         System.out.println(allRole);
     }
     @Autowired
