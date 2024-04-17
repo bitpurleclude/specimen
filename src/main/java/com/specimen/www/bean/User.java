@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 public class User implements UserDetails {
@@ -15,16 +16,16 @@ public class User implements UserDetails {
     private String password;
     private String email;
     @TableField(exist = false)
-    private List<Role> Roles;
+    private HashMap<String,Role> RolesHashMap = new HashMap<>();
 
     public User() {
     }
 
-    public User(int id, String password, String email, List<Role> Roles) {
+    public User(int id, String password, String email, HashMap<String, Role> RolesHashMap) {
         this.id = id;
         this.password = password;
         this.email = email;
-        this.Roles = Roles;
+        this.RolesHashMap = RolesHashMap;
     }
 
 
@@ -41,22 +42,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     /**
@@ -109,21 +110,25 @@ public class User implements UserDetails {
 
     /**
      * 获取
-     * @return Roles
+     * @return RolesHashMap
      */
-    public List<Role> getRoles() {
-        return Roles;
+    public HashMap<String, Role> getRolesHashMap() {
+        return RolesHashMap;
     }
 
     /**
      * 设置
-     * @param Roles
+     * @param RolesHashMap
      */
-    public void setRoles(List<Role> Roles) {
-        this.Roles = Roles;
+    public void setRolesHashMap(HashMap<String, Role> RolesHashMap) {
+        this.RolesHashMap = RolesHashMap;
     }
 
     public String toString() {
-        return "User{id = " + id + ", password = " + password + ", email = " + email + ", Roles = " + Roles + "}";
+        return "User{id = " + id + ", password = " + password + ", email = " + email + ", RolesHashMap = " + RolesHashMap + "}";
+    }
+
+    public void setRole(Role role) {
+        this.RolesHashMap.put(role.getRoleName(),role);
     }
 }
