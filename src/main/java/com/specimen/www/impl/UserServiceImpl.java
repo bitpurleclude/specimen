@@ -5,7 +5,6 @@ import com.specimen.www.bean.Role;
 import com.specimen.www.bean.User;
 import com.specimen.www.bean.UserIdToRoleId;
 import com.specimen.www.mapper.UserMapper;
-import com.specimen.www.service.UserIdToRoleIdService;
 import com.specimen.www.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,10 +32,16 @@ public class UserServiceImpl implements UserService , UserDetailsService {
         query.eq("email",username);
         User user = userMapper.selectOne(query);
         if (user!=null){
-//            List<UserIdToRoleId> userIdToRoleIdByUserId = userIdToRoleIdService.getUserIdToRoleIdByUserId(user.getId());
-//            for (UserIdToRoleId userIdToRoleId : userIdToRoleIdByUserId) {
-//                user.setRole(roleIdHashMap.get(userIdToRoleId.getRoleId()));
-//            }
+            getUserRoleByUser(user);
+        }
+        return user;
+    }
+    @Override
+    public User getUserRoleByUser(User user){
+        List<UserIdToRoleId> userIdToRoleIdByUserId = userIdToRoleIdService.getUserIdToRoleIdByUserId(user.getId());
+        for (UserIdToRoleId userIdToRoleId : userIdToRoleIdByUserId) {
+            Role role = roleIdHashMap.get(userIdToRoleId.getRoleId());
+            user.getRolesHashMap().put(role.getRoleName(),role);
         }
         return user;
     }
