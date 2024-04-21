@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +33,18 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            // 添加角色
+            for (Role role : RolesHashMap.values()) {
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
+
+                // 添加权限
+                for (Permission permission : role.getPermissions()) {
+                    authorities.add(new SimpleGrantedAuthority(permission.getPermission()));
+                }
+            }
+
+            return authorities;
     }
 
 
