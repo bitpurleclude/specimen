@@ -23,8 +23,9 @@ svg.setAttribute('width', imageDisplay.offsetWidth);
 svg.setAttribute('height', imageDisplay.offsetHeight);
 svg.style.position = 'absolute';
 svg.style.top = imageDisplay.offsetTop + 'px';
-//svg.style.left = imageDisplay.offsetLeft + 'px';
-svg.style.zIndex = 2;
+svg.style.left = imageDisplay.offsetLeft + 'px';
+svg.style.zIndex = 1;
+svg.style.pointerEvents = 'none';
 document.body.appendChild(svg);
 imageDisplay.parentNode.appendChild(svg);
 
@@ -32,7 +33,9 @@ imageDisplay.addEventListener('mousedown', function(e) {
     e.preventDefault();
     isDrawing = true;
     if (!isDrawing) return;
-    points.push({x: e.clientX, y: e.clientY});
+    var x = e.clientX - imageDisplay.offsetLeft;
+    var y = e.clientY - imageDisplay.offsetTop;
+    points.push({x: x, y: y});
 
     path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('stroke', 'black');
@@ -42,7 +45,9 @@ imageDisplay.addEventListener('mousedown', function(e) {
 
 imageDisplay.addEventListener('mousemove', function(e) {
     if (!isDrawing) return;
-    points.push({x: e.clientX, y: e.clientY});
+    var x = e.clientX - imageDisplay.offsetLeft;
+    var y = e.clientY - imageDisplay.offsetTop;
+    points.push({x: x, y: y});
 
     var d = 'M' + points.map(function(point) { return point.x + ' ' + point.y; }).join(' L');
     path.setAttribute('d', d);
