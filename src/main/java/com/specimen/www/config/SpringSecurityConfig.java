@@ -44,11 +44,11 @@ public class SpringSecurityConfig  {
                         .permitAll()
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/user/register").permitAll()
-                        .requestMatchers("/user/authentication/*").permitAll()
-                        .requestMatchers("/hello").permitAll()
-                        .requestMatchers("/html/SvgDraw.html").permitAll()
-                        .anyRequest().authenticated()
+                        //.requestMatchers("/*").permitAll()
+                        //.requestMatchers("/user/authentication/*").permitAll()
+                        //.requestMatchers("/hello").permitAll()
+                        //.requestMatchers("/html/SvgDraw.html").permitAll()
+                        .anyRequest().permitAll()
                 )
                 ;
 
