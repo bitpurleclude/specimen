@@ -3,7 +3,9 @@ package com.specimen.www.bean;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 
+@TableName("user_id_role_id")
 public class UserIdToRoleId {
     @TableId(type = IdType.AUTO)
     private int id;
