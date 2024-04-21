@@ -37,6 +37,7 @@ class SpecimenApplicationTests {
     }
     @Autowired
     UserServiceImpl userService;
+    //测试用户服务
     @Test
     void userServiceTest(){
         User user=new User();
@@ -44,5 +45,11 @@ class SpecimenApplicationTests {
         user.setPassword(passwordEncoder.encode("123456"));
         userService.checkHasResign("test");
         userService.insertUser(user);
+    }
+    @Test
+    void getRoleIdByUser(){
+        User user = userService.getUserByUsername("1551758442@qq.com");
+        System.out.println(user);
+        System.out.println(user.getRolesHashMap().get("admin").getPermissions());
     }
 }
