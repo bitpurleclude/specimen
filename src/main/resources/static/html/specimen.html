@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Display</title>
+</head>
+<body>
+<select id="myMenu"></select>
+<img id="myImage" src="" alt="Image">
+<script>
+    fetch('/menu')
+        .then(response => response.json())
+        .then(menuItems => {
+            var menu = document.getElementById('myMenu');
+            menuItems.forEach(item => {
+                var option = document.createElement('option');
+                option.text = item;
+                menu.add(option);
+            });
+        });
+
+    fetch('/image')
+        .then(response => response.blob())
+        .then(blob => {
+            var img = document.getElementById('myImage');
+            img.src = URL.createObjectURL(blob);
+        });
+</script>
+</body>
+</html>
