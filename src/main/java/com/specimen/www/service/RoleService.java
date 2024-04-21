@@ -12,4 +12,6 @@ public interface RoleService {
 
     @Bean
     HashMap<Integer, Role> getAllRoleId();
+
+    void getRolePermission(Role role);
 }
