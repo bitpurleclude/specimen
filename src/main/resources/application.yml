@@ -27,3 +27,5 @@ server:
     key-store: classpath:keystore.jks
     key-store-password: Ljr2287699363
     key-alias: mykey
+img:
+  path: C:/resources/img/
