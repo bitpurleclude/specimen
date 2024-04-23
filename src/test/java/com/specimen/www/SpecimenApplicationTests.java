@@ -1,11 +1,14 @@
 package com.specimen.www;
 
 import com.specimen.www.bean.ImageWithSignPath;
+import com.specimen.www.bean.ImgInfo;
 import com.specimen.www.bean.Role;
 import com.specimen.www.bean.User;
+import com.specimen.www.impl.ImgInfoServiceImpl;
 import com.specimen.www.impl.RoleServiceImpl;
 import com.specimen.www.impl.UserServiceImpl;
 import com.specimen.www.mapper.ImageWithSignMapper;
+import com.specimen.www.util.GetImg;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
 @RunWith(SpringRunner.class)
@@ -51,5 +55,19 @@ class SpecimenApplicationTests {
         User user = userService.getUserByUsername("1551758442@qq.com");
         System.out.println(user);
         System.out.println(user.getRolesHashMap().get("admin").getPermissions());
+    }
+    @Autowired
+    GetImg getImg;
+    @Test
+    void getImg(){
+        BufferedImage img = getImg.getImg("test.png");
+        System.out.println(img);
+    }
+    @Autowired
+    ImgInfoServiceImpl imgInfoServiceImpl;
+    @Test
+    void ImgInfoServiceTest(){
+        ImgInfo imgInfoByName = imgInfoServiceImpl.getImgInfoByName("test.png");
+        System.out.println(imgInfoByName);
     }
 }
