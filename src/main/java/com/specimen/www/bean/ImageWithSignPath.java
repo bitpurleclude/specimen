@@ -1,31 +1,27 @@
 package com.specimen.www.bean;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.awt.image.BufferedImage;
 
 public class ImageWithSignPath {
+    @TableId(type = IdType.AUTO)
     private int id;
-    private String svg;
-    private BufferedImage image;
-    private String hashCode;
-    private String sign;
-    private String path;
+    @TableField("path")
+    private String svgPath;
+    @TableField("img_id")
+    private int imageId;
 
     public ImageWithSignPath() {
     }
 
-    public ImageWithSignPath(int id, String svg) {
+    public ImageWithSignPath(int id, String svgPath, int imageId) {
         this.id = id;
-        this.svg = svg;
-    }
-
-    public ImageWithSignPath(int id, String svg, BufferedImage image, String hashCode, String sign, String path) {
-        this.id = id;
-        this.svg = svg;
-        this.image = image;
-        this.hashCode = hashCode;
-        this.sign = sign;
-        this.path = path;
+        this.svgPath = svgPath;
+        this.imageId = imageId;
     }
 
     /**
@@ -35,6 +31,7 @@ public class ImageWithSignPath {
     public int getId() {
         return id;
     }
+
     /**
      * 设置
      * @param id
@@ -45,86 +42,37 @@ public class ImageWithSignPath {
 
     /**
      * 获取
-     * @return path
+     * @return svgPath
      */
-    public String getSvg() {
-        return svg;
+    public String getSvgPath() {
+        return svgPath;
     }
 
     /**
      * 设置
-     * @param svg
+     * @param svgPath
      */
-    public void setSvg(String svg) {
-        this.svg = svg;
+    public void setSvgPath(String svgPath) {
+        this.svgPath = svgPath;
+    }
+
+    /**
+     * 获取
+     * @return imageId
+     */
+    public int getImageId() {
+        return imageId;
+    }
+
+    /**
+     * 设置
+     * @param imageId
+     */
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public String toString() {
-        return "ImageWithSign{id = " + id + ", path = " + svg + "}";
-    }
-
-
-    /**
-     * 获取
-     * @return image
-     */
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    /**
-     * 设置
-     * @param image
-     */
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
-
-    /**
-     * 获取
-     * @return hashCode
-     */
-    public String getHashCode() {
-        return hashCode;
-    }
-
-    /**
-     * 设置
-     * @param hashCode
-     */
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
-    }
-
-    /**
-     * 获取
-     * @return sign
-     */
-    public String getSign() {
-        return sign;
-    }
-
-    /**
-     * 设置
-     * @param sign
-     */
-    public void setSign(String sign) {
-        this.sign = sign;
-    }
-
-    /**
-     * 获取
-     * @return path
-     */
-    public String getPath() {
-        return path;
-    }
-
-    /**
-     * 设置
-     * @param path
-     */
-    public void setPath(String path) {
-        this.path = path;
+        return "ImageWithSignPath{id = " + id + ", svgPath = " + svgPath + ", imageId = " + imageId + "}";
     }
 }

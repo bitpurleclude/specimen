@@ -3,13 +3,14 @@ package com.specimen.www.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.specimen.www.bean.ImgInfo;
 import com.specimen.www.mapper.ImgInfoMapper;
+import com.specimen.www.service.ImgInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ImgInfoServiceImpl {
+public class ImgInfoServiceImpl implements ImgInfoService {
     @Autowired
     ImgInfoMapper imgInfoMapper;
     public ImgInfo getImgInfoByName(String name){
