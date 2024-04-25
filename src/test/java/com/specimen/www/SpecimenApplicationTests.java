@@ -2,7 +2,6 @@ package com.specimen.www;
 
 import com.specimen.www.bean.ImageWithSignPath;
 import com.specimen.www.bean.ImgInfo;
-import com.specimen.www.bean.Role;
 import com.specimen.www.bean.User;
 import com.specimen.www.impl.ImgInfoServiceImpl;
 import com.specimen.www.impl.RoleServiceImpl;
@@ -18,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
-import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpecimenApplication.class)
 class SpecimenApplicationTests {
@@ -60,8 +59,8 @@ class SpecimenApplicationTests {
     GetImg getImg;
     @Test
     void getImg(){
-        BufferedImage img = getImg.getImg("test.png");
-        System.out.println(img);
+        //BufferedImage img = getImg.getImgReader("test.png");
+        //System.out.println(img);
     }
     @Autowired
     ImgInfoServiceImpl imgInfoServiceImpl;
