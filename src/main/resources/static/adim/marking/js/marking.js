@@ -56,13 +56,21 @@ imageDisplay.addEventListener('mousemove', function (e) {
 
 imageDisplay.addEventListener('mouseup', function (e) {
     isDrawing = false;
+
+    // 如果有绘制的点，将路径的起点添加到路径的终点，闭合SVG路径
+    if (points.length > 0) {
+        points.push(points[0]);
+        var d = 'M' + points.map(function (point) {
+            return point.x + ' ' + point.y;
+        }).join(' L');
+        path.setAttribute('d', d);
+    }
+
     points = [];
 
     var tooltip = document.getElementById('tooltip');
     var svgNameInput = document.getElementById('svgName');
     var arrow = document.getElementById('arrow');
-
-
 
     // 当输入框中的值改变时，更新SVG的名字
     svgNameInput.addEventListener('input', function () {
