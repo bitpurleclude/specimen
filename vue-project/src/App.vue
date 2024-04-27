@@ -1,6 +1,7 @@
 <script setup>
-import svgshow from './Svgshow.vue'
-import src from '@/1.jpg'
+import src from '@/2.png'
+import Svgshow from "@/Svgshow.vue";
+const imgRef = ref(null);
 const srcList = [
   src,
   'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
@@ -20,10 +21,10 @@ const srcList = [
         <el-aside>Aside</el-aside>
         <el-container>
           <el-main>
-
             <div class="demo-image__preview">
-              <el-image style="width: 200px; height: 200px" :src="src" :zoom-rate="1.2" :max-scale="7" :min-scale="0.2"
+              <el-image ref="imgRef" style="width: 200px; height: 200px" :src="src" :zoom-rate="1.2" :max-scale="7" :min-scale="0.2"
                 :preview-src-list="srcList" :initial-index="4" fit="cover" />
+              <Svgshow :imgRef="imgRef"/>
             </div>
           </el-main>
           <el-footer>Footer</el-footer>
@@ -66,6 +67,8 @@ body,
 }
 
 .demo-image__preview {
+  position: relative;
+  z-index: 1;
   width: 100px;
   height: 100px;
 }
