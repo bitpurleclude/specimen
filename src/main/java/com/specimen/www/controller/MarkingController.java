@@ -36,19 +36,10 @@ public class MarkingController {
             String md5 = GetImgMD5.getMD5(GetImgMD5.multipartFileToBufferedImage(file));
             ImgInfo imgInfoByMD5 = imgInfoService.getImgInfoByMD5(md5);
             if (imgInfoByMD5 != null){
-                ImageWithSignPath imageWithSignPath = new ImageWithSignPath();
-                imageWithSignPath.setSvgPath(svgPath);
-                imageWithSignPath.setImageId(imgInfoByMD5.getId());
-                imgSVGService.addSVG(imageWithSignPath);
+                imgSVGService.addSVG(svgPath,imgInfoByMD5.getId());
             }else {
-                ImgInfo imgInfo = new ImgInfo();
-                imgInfo.setMD5(md5);
-                imgInfo.setImgName(file.getOriginalFilename());
-                imgInfoService.addImgInfo(imgInfo);
-                ImageWithSignPath imageWithSignPath = new ImageWithSignPath();
-                imageWithSignPath.setSvgPath(svgPath);
-                imageWithSignPath.setImageId(imgInfo.getId());
-                imgSVGService.addSVG(imageWithSignPath);
+                ImgInfo imgInfo = imgInfoService.addImgInfo(file.getOriginalFilename(), md5);
+                imgSVGService.addSVG(svgPath,imgInfo.getId());
                 BufferedImage bufferByFile = imgUtil.getBufferByFile(file);
                 imgUtil.saveImg(bufferByFile,file.getOriginalFilename(),getFileExtensionFromMimeType(file.getContentType()));
             }

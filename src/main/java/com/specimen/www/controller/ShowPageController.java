@@ -16,6 +16,7 @@ import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class ShowPageController {
@@ -41,7 +42,11 @@ public class ShowPageController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
+    @RequestMapping("/getAllImgInfo")
+    public List<ImgInfo> getAllImgInfo(){
+        return imgInfoService.getAllImgInfo();
+    }
+
 
 }
