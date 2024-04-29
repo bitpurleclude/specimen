@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import src from '@/2.png'
 import Show_photo from './Show_photo.vue';
+import Head from './Head.vue'
 const imgRef = ref(null);
 const srcList = [
   src,
@@ -16,9 +17,11 @@ const srcList = [
 
 <template>
   <div class="common-layout">
-    <el-container>
-      <el-header>Header</el-header>
-      <el-container>
+    <el-container class="down-divider">
+      <el-header>
+        <Head/>
+      </el-header>
+      <el-container class="lr-divider">
         <el-aside>Aside</el-aside>
         <el-container>
           <el-main>
@@ -43,7 +46,13 @@ body,
   height: 100%;
   max-width: none;
 }
+.down-divider >:not(:last-child){
+  border-bottom: 1px solid #ffffff55; /* 使用白色边框作为分割线 */
+}
 
+.lr-divider >:not(:last-child){
+  border-right: 1px solid #ffffff55; /* 使用白色边框作为分割线 */
+}
 .common-layout {
   width: 200%;
 }
@@ -53,8 +62,11 @@ body,
   height: 100%;
 }
 
+.el-header{
+  padding:0;
+}
+
 .el-main,
-.el-header,
 .el-aside,
 .el-footer {
   display: flex;
