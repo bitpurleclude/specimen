@@ -7,7 +7,7 @@ import com.specimen.www.impl.ImgInfoServiceImpl;
 import com.specimen.www.impl.RoleServiceImpl;
 import com.specimen.www.impl.UserServiceImpl;
 import com.specimen.www.mapper.ImageWithSignMapper;
-import com.specimen.www.util.GetImg;
+import com.specimen.www.util.ImgUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 @RunWith(SpringRunner.class)
@@ -56,7 +55,7 @@ class SpecimenApplicationTests {
         System.out.println(user.getRolesHashMap().get("admin").getPermissions());
     }
     @Autowired
-    GetImg getImg;
+    ImgUtil imgUtil;
     @Test
     void getImg(){
         //BufferedImage img = getImg.getImgReader("test.png");

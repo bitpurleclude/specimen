@@ -3,7 +3,7 @@ package com.specimen.www.controller;
 import com.specimen.www.bean.ImgInfo;
 import com.specimen.www.bean.ImgName;
 import com.specimen.www.impl.ImgInfoServiceImpl;
-import com.specimen.www.util.GetImg;
+import com.specimen.www.util.ImgUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +22,14 @@ public class ShowPageController {
     @Autowired
     private ImgInfoServiceImpl imgInfoService;
     @Autowired
-    private GetImg getImg;
+    private ImgUtil imgUtil;
     @RequestMapping("/getImgByName")
     public ResponseEntity<byte[]> getImgByName(@RequestBody ImgName imgName) throws IOException {
         ImgInfo imgInfoByName = imgInfoService.getImgInfoByName(imgName.getName());
         if (imgInfoByName == null){
             return null;
         }
-        ImageReader imgReader = getImg.getImgReader(imgInfoByName.getImgName());
+        ImageReader imgReader = imgUtil.getImgReader(imgInfoByName.getImgName());
         String formatName = imgReader.getFormatName();
         BufferedImage img = imgReader.read(0);
         System.out.println(img);
