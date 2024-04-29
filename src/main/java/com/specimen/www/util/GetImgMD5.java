@@ -1,13 +1,17 @@
 package com.specimen.www.util;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class GetImgMD5 {
-    public static String getImgMD5(BufferedImage image) {
+    public static String getMD5(BufferedImage image) {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             ImageIO.write(image, "png", outputStream);
@@ -24,5 +28,10 @@ public class GetImgMD5 {
         } catch (Exception e) {
             throw new RuntimeException("Could not calculate MD5", e);
         }
+    }
+
+    public static BufferedImage  multipartFileToBufferedImage(MultipartFile file) throws IOException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(file.getBytes());
+        return ImageIO.read(bais);
     }
 }

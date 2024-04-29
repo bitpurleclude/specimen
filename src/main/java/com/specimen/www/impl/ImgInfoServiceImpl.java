@@ -13,11 +13,24 @@ import java.util.List;
 public class ImgInfoServiceImpl implements ImgInfoService {
     @Autowired
     ImgInfoMapper imgInfoMapper;
+    @Override
     public ImgInfo getImgInfoByName(String name){
         List<ImgInfo> imgInfos = imgInfoMapper.selectList(new QueryWrapper<ImgInfo>().eq("img_name", name));
         if (imgInfos.size() == 0){
             return null;
         }
         return imgInfos.get(0);
+    }
+    @Override
+    public ImgInfo getImgInfoByMD5(String md5){
+        List<ImgInfo> imgInfos = imgInfoMapper.selectList(new QueryWrapper<ImgInfo>().eq("md5", md5));
+        if (imgInfos.size() == 0){
+            return null;
+        }
+        return imgInfos.get(0);
+    }
+    @Override
+    public void addImgInfo(ImgInfo imgInfo){
+        imgInfoMapper.insert(imgInfo);
     }
 }
