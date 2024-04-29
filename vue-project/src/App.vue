@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import src from '@/2.png'
-import Show_photo from './Show_photo.vue';
+import Set_photo from './Set_photo.vue'
 import Head from './Head.vue'
 const imgRef = ref(null);
 const srcList = [
@@ -19,18 +19,16 @@ const srcList = [
   <div class="common-layout">
     <el-container class="down-divider">
       <el-header>
-        <Head/>
+
+        <Head />
       </el-header>
       <el-container class="lr-divider">
         <el-aside>Aside</el-aside>
-        <el-container>
-          <el-main>
-            <div class="demo-image__preview">
-              <Show_photo/>
-            </div>
-          </el-main>
-          <el-footer>Footer</el-footer>
-        </el-container>
+        <el-main>
+          <div class="demo-image__preview">
+            <Set_photo />
+          </div>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -46,13 +44,17 @@ body,
   height: 100%;
   max-width: none;
 }
-.down-divider >:not(:last-child){
-  border-bottom: 1px solid #ffffff55; /* 使用白色边框作为分割线 */
+
+.down-divider>:not(:last-child) {
+  border-bottom: 1px solid #ffffff55;
+  /* 使用白色边框作为分割线 */
 }
 
-.lr-divider >:not(:last-child){
-  border-right: 1px solid #ffffff55; /* 使用白色边框作为分割线 */
+.lr-divider>:not(:last-child) {
+  border-right: 1px solid #ffffff55;
+  /* 使用白色边框作为分割线 */
 }
+
 .common-layout {
   width: 200%;
 }
@@ -62,11 +64,15 @@ body,
   height: 100%;
 }
 
-.el-header{
-  padding:0;
+.el-header {
+  padding: 0;
 }
 
-.el-main,
+.el-main {
+  display: flex;
+  padding: 0%;
+}
+
 .el-aside,
 .el-footer {
   display: flex;
@@ -80,7 +86,7 @@ body,
 .demo-image__preview {
   position: relative;
   z-index: 1;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
 }
 </style>

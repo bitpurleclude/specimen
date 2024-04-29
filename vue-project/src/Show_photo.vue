@@ -41,7 +41,7 @@ onMounted(() => {
 <template>
   <div>
     <!-- 渲染图片 -->
-    <img ref="imgRef" :src="image_url" alt="..." style="position: relative;" :width="500" :height="500"/>
+    <img ref="imgRef" :src="image_url" alt="..." style="position: relative;" :width="200" :height="200"/>
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
     <svg :width="imageSize.width" :height="imageSize.height"
       :view-box="`0 0 ${imageSize.Width} ${imageSize.Height}`" xmlns="http://www.w3.org/2000/svg"
