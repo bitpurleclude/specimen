@@ -30,7 +30,19 @@ public class ImgInfoServiceImpl implements ImgInfoService {
         return imgInfos.get(0);
     }
     @Override
+    public List<ImgInfo> getAllImgInfo(){
+        return imgInfoMapper.selectList(null);
+    }
+    @Override
     public void addImgInfo(ImgInfo imgInfo){
         imgInfoMapper.insert(imgInfo);
+    }
+    @Override
+    public ImgInfo addImgInfo(String imgName, String md5){
+        ImgInfo imgInfo = new ImgInfo();
+        imgInfo.setImgName(imgName);
+        imgInfo.setMD5(md5);
+        imgInfoMapper.insert(imgInfo);
+        return imgInfo;
     }
 }

@@ -21,7 +21,15 @@ public class ImgSVGServiceImpl implements ImgSVGService {
         }
         return svgs;
     }
+    @Override
     public void addSVG(ImageWithSignPath imageWithSignPath){
+        imageWithSignMapper.insert(imageWithSignPath);
+    }
+    @Override
+    public void addSVG(String svgPath, int imgId){
+        ImageWithSignPath imageWithSignPath = new ImageWithSignPath();
+        imageWithSignPath.setSvgPath(svgPath);
+        imageWithSignPath.setImageId(imgId);
         imageWithSignMapper.insert(imageWithSignPath);
     }
 }
