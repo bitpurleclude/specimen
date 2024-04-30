@@ -7,6 +7,8 @@ import com.specimen.www.impl.ImgSVGServiceImpl;
 import com.specimen.www.util.GetImgMD5;
 import com.specimen.www.util.ImgUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,25 +30,24 @@ public class MarkingController {
     @Autowired
     private ImgUtil imgUtil;
     @RequestMapping("/marking")
-    public void markingPhoto(@RequestParam("svgPath")String svgPath,
-                                    @RequestParam("svgName") String svgName,
-                                    @RequestParam("file") MultipartFile file ) {
+    public ResponseEntity<String> markingPhoto(@RequestParam("svgPath")String svgPath,
+                                       @RequestParam("svgName") String svgName,
+                                       @RequestParam("file") MultipartFile file ) {
 
         try {
             String md5 = GetImgMD5.getMD5(GetImgMD5.multipartFileToBufferedImage(file));
             ImgInfo imgInfoByMD5 = imgInfoService.getImgInfoByMD5(md5);
             if (imgInfoByMD5 != null){
-                imgSVGService.addSVG(svgPath,imgInfoByMD5.getId());
+                imgSVGService.addSVG(svgPath,imgInfoByMD5.getId(),svgName);
             }else {
                 ImgInfo imgInfo = imgInfoService.addImgInfo(file.getOriginalFilename(), md5);
-                imgSVGService.addSVG(svgPath,imgInfo.getId());
+                imgSVGService.addSVG(svgPath,imgInfo.getId(),svgName);
                 BufferedImage bufferByFile = imgUtil.getBufferByFile(file);
                 imgUtil.saveImg(bufferByFile,file.getOriginalFilename(),getFileExtensionFromMimeType(file.getContentType()));
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
+        return new ResponseEntity<>("处理成功", HttpStatus.OK);
     }
 }

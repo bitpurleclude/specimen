@@ -81,23 +81,30 @@ imageDisplay.addEventListener('mouseup', function (e) {
     svg.style.pointerEvents = 'none';
 });
 document.getElementById("submit").addEventListener('click', function () {
-// 获取文件和SVG路径
+    // 获取文件和SVG路径
     var fileInput = document.getElementById('file');
     var file = fileInput.files[0];
-    var svgPath = document.querySelector('svg').children[0];
+    var svgPaths = document.querySelectorAll('svg > path');
     var svgName = document.getElementById('svgName').value;
-    if (!file || !svgPath || !svgName) {
+    if (!file || svgPaths.length === 0 || !svgName) {
         return;
     }
 
-// 创建一个FormData对象
+    // 创建一个数组来存储所有路径的d属性
+    var pathDataArray = [];
+    svgPaths.forEach(function(path) {
+        pathDataArray.push(path.getAttribute('d'));
+    });
+
+    // 创建一个FormData对象
     var formData = new FormData();
 
-// 将文件和SVG路径添加到FormData对象中
+    // 将文件和SVG路径添加到FormData对象中
     formData.append('file', file);
-    formData.append('svgPath', svgPath);
+    formData.append('svgPath', JSON.stringify(pathDataArray));
     formData.append('svgName', svgName);
-// 使用fetch API发送异步请求
+
+    // 使用fetch API发送异步请求
     fetch('/marking', {
         method: 'POST',
         body: formData
