@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import src from '@/2.png'
-import Set_photo from './Set_photo.vue'
+import Set_photo from './Set_photo.vue';
 import Head from './Head.vue'
 const imgRef = ref(null);
 const srcList = [
@@ -80,7 +80,7 @@ body,
   justify-content: center;
   /* 垂直居中 */
   align-items: center;
-  /* 水平居中所有内容，包括 svgshow 组件 */
+  /* 水平居中所有内容 */
 }
 
 .demo-image__preview {

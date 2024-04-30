@@ -1,13 +1,14 @@
 <script setup>
 import Show_photo from './Show_photo.vue';
 import { ref, onMounted } from 'vue';
+import src from '@/2.png';
 //声明一个点击事件
+const url =ref(src);
 const handleClick = (index) => {
   console.log('click');
   selectedImageIndex.value = index;
   singleView.value = true;
 };
-const clickRef = ref(handleClick);
 const selectedImageIndex = ref(-1); // 初始未选择
 const singleView = ref(false); // 是否处于单张图片展示模式
 </script>
@@ -16,7 +17,7 @@ const singleView = ref(false); // 是否处于单张图片展示模式
   <el-col v-if="!singleView">
     <el-row>
       <el-col :span="6" class="photo">
-        <Show_photo @click="handleClick(1)" style="cursor: pointer"/>
+        <img :src="url" alt="" @click="handleClick(1)" class="image-container">
       </el-col>
       <el-col :span="6" class="photo">
         <div class="grid-content ep-bg-purple" />
@@ -85,5 +86,11 @@ const singleView = ref(false); // 是否处于单张图片展示模式
   align-items: center;
   height: 100%;
   width: 100%;
+}
+
+.image-container {
+  max-width: 100%;
+  max-height: 100%;
+  cursor: pointer;
 }
 </style>
