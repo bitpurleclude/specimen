@@ -3,7 +3,7 @@
         <template #content>
             <div class="content">
                 <el-avatar :size="40" class="mr-3"
-                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" alt="头像"/>
                 <span class="text-large font-600 mr-3"> Title </span>
                 <span class="text-sm mr-2" style="color: var(--el-text-color-regular)">
                     Sub title

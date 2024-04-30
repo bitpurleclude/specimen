@@ -35,7 +35,13 @@ onMounted(() => {
     { immediate: true }
   );
 });
-
+const isOnsvg = ref(false);
+const onMousesvg = () => {
+  isOnsvg.value = true;
+};
+const outMousesvg = () => {
+  isOnsvg.value = false;
+};
 </script>
 
 <template>
@@ -47,8 +53,8 @@ onMounted(() => {
       :view-box="`0 0 ${imageSize.Width} ${imageSize.Height}`" xmlns="http://www.w3.org/2000/svg"
       :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
       <g :transform="`scale(${imageSize.xScale}, ${imageSize.yScale})`">
-        <path :d="svgData" stroke="black" fill="none" stroke-width="2"></path>
-        <path :d="svgData" fill="black" fill-opacity="0" id="hiddenPath"></path>
+        <path v-if="isOnsvg" :d="svgData" stroke="black" fill="none" stroke-width="2"></path>
+        <path :d="svgData" fill="black" fill-opacity="0" id="hiddenPath" style="cursor: pointer;" @mouseover="onMousesvg" @mouseout="outMousesvg"></path>
       </g>
     </svg>
   </div>
