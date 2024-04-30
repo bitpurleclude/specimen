@@ -15,21 +15,19 @@ const svgData = ref([
 ])
 const svgObjects = ref([]);
 for (let i = 0; i < svgData.value.length; i++) {
-  svgObjects.value.push(new SVGData(svgData[i], false));
+  svgObjects.value.push(new SVGData(svgData.value[i], false));
 }
 const imageSize = ref({ left: 0, top: 0, width: 0, height: 0, realWidth: 0, realHeight: 0, xScale: 1, yScale: 1 });
 const imgRef = ref(null);
-const activeSVGPaths = computed(() =>
-  svgObjects.value.filter(svgObj => svgObj.isOn).map(svgObj => svgObj.svgPath),
-);
+const activeSVGPaths = computed(() =>{
+  return svgObjects.value.filter(svgObj => svgObj.isOn).map(svgObj => svgObj.svgPath)
+});
 console.log(activeSVGPaths)
 const onMousesvg = (index) => {
   svgObjects.value[index].toggle();
-  console.log(activeSVGPaths)
 };
 const outMousesvg = (index) => {
   svgObjects.value[index].toggle();
-  console.log(activeSVGPaths)
 };
 
 const adjustImageSize = () => {
