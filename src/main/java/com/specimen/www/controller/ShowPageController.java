@@ -1,5 +1,6 @@
 package com.specimen.www.controller;
 
+import com.specimen.www.bean.ImgId;
 import com.specimen.www.bean.ImgInfo;
 import com.specimen.www.bean.ImgName;
 import com.specimen.www.impl.ImgInfoServiceImpl;
@@ -25,22 +26,23 @@ public class ShowPageController {
     @Autowired
     private ImgUtil imgUtil;
     @RequestMapping("/getImgByName")
-    public ResponseEntity<byte[]> getImgByName(@RequestBody ImgName imgName) throws IOException {
+    public ResponseEntity<byte[]> getImgByName(@RequestBody ImgName imgName) {
         ImgInfo imgInfoByName = imgInfoService.getImgInfoByName(imgName.getName());
-        if (imgInfoByName == null){
+        try {
+            ResponseEntity<byte[]> responseEntity = imgUtil.returnImgInfo(imgInfoByName);
+            return responseEntity;
+        }catch (IOException e) {
             return null;
         }
-        ImageReader imgReader = imgUtil.getImgReader(imgInfoByName.getImgName());
-        String formatName = imgReader.getFormatName();
-        BufferedImage img = imgReader.read(0);
-        System.out.println(img);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    }
+    @RequestMapping("/getImgById")
+    public ResponseEntity<byte[]> getImgById(@RequestBody ImgId imgId) {
+        ImgInfo imgInfoById = imgInfoService.getImgInfoById(imgId.getImgId());
         try {
-            ImageIO.write(img,formatName,byteArrayOutputStream);
-            byte[] bytes = byteArrayOutputStream.toByteArray();
-            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(bytes);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            ResponseEntity<byte[]> responseEntity = imgUtil.returnImgInfo(imgInfoById);
+            return responseEntity;
+        }catch (IOException e) {
+            return null;
         }
     }
     @RequestMapping("/getAllImgInfo")

@@ -9,6 +9,8 @@ public interface ImgInfoService {
 
     ImgInfo getImgInfoByMD5(String md5);
 
+    ImgInfo getImgInfoById(int id);
+
     List<ImgInfo> getAllImgInfo();
 
     void addImgInfo(ImgInfo imgInfo);
