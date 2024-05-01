@@ -15,5 +15,5 @@ public interface ImgInfoService {
 
     void addImgInfo(ImgInfo imgInfo);
 
-    ImgInfo addImgInfo(String imgName, String md5);
+    ImgInfo addImgInfo(String imgName, String md5, int width, int height);
 }

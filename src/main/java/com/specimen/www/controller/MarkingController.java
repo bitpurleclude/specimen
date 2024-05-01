@@ -40,9 +40,9 @@ public class MarkingController {
             if (imgInfoByMD5 != null){
                 imgSVGService.addSVG(svgPath,imgInfoByMD5.getId(),svgName);
             }else {
-                ImgInfo imgInfo = imgInfoService.addImgInfo(file.getOriginalFilename(), md5);
-                imgSVGService.addSVG(svgPath,imgInfo.getId(),svgName);
                 BufferedImage bufferByFile = imgUtil.getBufferByFile(file);
+                ImgInfo imgInfo = imgInfoService.addImgInfo(file.getOriginalFilename(), md5, bufferByFile.getWidth(), bufferByFile.getHeight());
+                imgSVGService.addSVG(svgPath,imgInfo.getId(),svgName);
                 imgUtil.saveImg(bufferByFile,file.getOriginalFilename(),getFileExtensionFromMimeType(file.getContentType()));
             }
         } catch (IOException e) {

@@ -42,10 +42,12 @@ public class ImgInfoServiceImpl implements ImgInfoService {
         imgInfoMapper.insert(imgInfo);
     }
     @Override
-    public ImgInfo addImgInfo(String imgName, String md5){
+    public ImgInfo addImgInfo(String imgName, String md5, int width, int height){
         ImgInfo imgInfo = new ImgInfo();
         imgInfo.setImgName(imgName);
         imgInfo.setMD5(md5);
+        imgInfo.setWidth(width);
+        imgInfo.setHeight(height);
         imgInfoMapper.insert(imgInfo);
         return imgInfo;
     }
