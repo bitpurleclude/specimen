@@ -10,10 +10,6 @@
 
 <script setup>
 const photoId=-1;
-import VTooltip from 'v-tooltip'
-
-Vue.use(VTooltip)
-
 import { ref } from 'vue';
 //获取img并展示
 const imgName = ref(null);
