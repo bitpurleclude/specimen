@@ -9,9 +9,6 @@
 
 <script setup>
 /* import Vue from 'vue' */
-import VTooltip from 'v-tooltip'
-
-Vue.use(VTooltip)
 
 import { ref } from 'vue';
 //获取img并展示
