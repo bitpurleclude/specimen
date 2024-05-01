@@ -2,20 +2,26 @@
 <template>
   <div>
     <input type="file" @change="handleFileUpload">
-    <img v-if="imageUrl" :src="imageUrl" alt="Preview">
+    <<img ref="imgRef" :src="imageUrl" alt="Preview" @mousedown="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
     <div v-for="(svgObject, index) in svgObjects" :key="index" v-html="svgObject.svgPath" v-tooltip="svgObject.name"></div>
+    <button @click="sendSvgPaths">发送 SVG 路径</button>
   </div>
 </template>
 
 <script setup>
-/* import Vue from 'vue' */
+const photoId=-1;
+import VTooltip from 'v-tooltip'
+
+Vue.use(VTooltip)
 
 import { ref } from 'vue';
 //获取img并展示
+const imgName = ref(null);
 const imageUrl = ref(null);
 const handleFileUpload = event => {
   const file = event.target.files[0];
   if (file) {
+    imgName.value = file.name;
     const reader = new FileReader();
     reader.onload = e => {
       imageUrl.value = e.target.result;
@@ -38,6 +44,8 @@ const newSvgPaths = ref([]);
 const imageSize = reactive({ width: 0, height: 0 });
 let currentPath = [];
 let isDrawing = false;
+let currentName = '';
+let currentPhotoId = '';
 
 const startDrawing = (event) => {
   isDrawing = true;
@@ -46,6 +54,8 @@ const startDrawing = (event) => {
 
 const draw = (event) => {
   if (!isDrawing) return;
+  currentName = imgName;
+  currentPhotoId = photoId;
   currentPath.push(`L ${event.offsetX} ${event.offsetY}`);
 };
 
@@ -53,11 +63,34 @@ const stopDrawing = () => {
   if (!isDrawing) return;
   isDrawing = false;
   currentPath.push('Z');
-  svgPaths.value.push(currentPath.join(' '));
-  newSvgPaths.value.push(currentPath.join(' '));
+  svgPaths.value.push({ path: currentPath.join(' '), name: currentName, photoId: currentPhotoId });
   currentPath = [];
+  currentName = '';
+  currentPhotoId = '';
 };
+//发送svg路径
+const sendSvgPaths = async () => {
+  try {
+    const response = await fetch('/api/svg-paths', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newSvgPaths.value),
+    });
 
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }else {
+      newSvgPaths.value = [];
+    }
+
+    const data = await response.json();
+    console.log('Response:', data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 </script>
 
 <style scoped>
