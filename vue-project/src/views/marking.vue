@@ -2,15 +2,15 @@
 <template>
   <div>
     <input type="file" @change="handleFileUpload">
-    <img ref="imgRef" :src="imageUrl" alt="Preview" @mousedown="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
-    <div v-for="(svgObject, index) in svgObjects" :key="index" v-html="svgObject.svgPath" v-tooltip="svgObject.name"></div>
+    <img ref="imgRef" :src="imageUrl" alt="Preview" @mousedown.prevent="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
+    <div v-for="(svgObject, index) in svgPaths" :key="index" v-html="svgObject.svgPath" v-tooltip="svgObject.name"></div>
     <button @click="sendSvgPaths">发送 SVG 路径</button>
   </div>
 </template>
 
 <script setup>
 const photoId=-1;
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 //获取img并展示
 const imgName = ref(null);
 const imageUrl = ref(null);
@@ -59,7 +59,7 @@ const stopDrawing = () => {
   if (!isDrawing) return;
   isDrawing = false;
   currentPath.push('Z');
-  svgPaths.value.push({ path: currentPath.join(' '), name: currentName, photoId: currentPhotoId });
+  svgPaths.value.push({ svgPath: currentPath.join(' '), name: currentName, photoId: currentPhotoId });
   currentPath = [];
   currentName = '';
   currentPhotoId = '';
@@ -87,6 +87,8 @@ const sendSvgPaths = async () => {
     console.error('Error:', error);
   }
 };
+onMounted(() => {
+});
 </script>
 
 <style scoped>
