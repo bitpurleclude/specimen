@@ -22,7 +22,7 @@
             </div>
             <div class="el-page-header__extra">
                 <div data-v-0a9bf5fc="" class="flex items-center"><button data-v-0a9bf5fc="" aria-disabled="false"
-                        type="button" class="el-button"><!--v-if--><span class="">Print</span></button><button
+                        type="button" class="el-button" @click="tomarking"><!--v-if--><span class="">Print</span></button><button
                         data-v-0a9bf5fc="" aria-disabled="false" type="button"
                         class="el-button el-button--primary ml-2"><!--v-if--><span class="">Edit</span></button></div>
             </div>
