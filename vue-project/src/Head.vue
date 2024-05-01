@@ -13,15 +13,19 @@
         </template>
         <template #extra>
             <div class="flex items-center">
-                <el-button>Print</el-button>
+                <el-button @click="tomarking">Print</el-button>
                 <el-button type="primary" class="ml-2">Edit</el-button>
             </div>
         </template>
     </el-page-header>
 </template>
 
-<script>
-
+<script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const tomarking = () => {
+    router.push('/marking')
+}
 </script>
 
 <style>
