@@ -44,33 +44,37 @@ const getSvgPaths = () => {
 };
 //绘制svg路径
 import { reactive } from 'vue';
+import { SVGDrowing } from '@/data/SVGDrowing.js';
 const newSvgPaths = ref([]);
 const imageSize = reactive({ width: 0, height: 0 });
+let size =0;
 let currentPath = [];
+
 let isDrawing = false;
 let currentName = '';
 let currentPhotoId = '';
 
 const startDrawing = (event) => {
+  let svgPath = [];  // SVG路径，这是一个数组
+  currentName = imgName;
+  currentPhotoId = photoId;
+
+  let svgDrowing = new SVGDrowing(svgPath, currentName, currentPhotoId);
+  svgPaths.value.push(svgDrowing);
+  svgPaths.value[size].StartPath(event.offsetX, event.offsetY);
   isDrawing = true;
-  currentPath = [`M ${event.offsetX} ${event.offsetY}`];
 };
 
 const draw = (event) => {
   if (!isDrawing) return;
-  currentName = imgName;
-  currentPhotoId = photoId;
-  currentPath.push(`L ${event.offsetX} ${event.offsetY}`);
+  svgPaths.value[size].addPath(event.offsetX, event.offsetY);
 };
 
 const stopDrawing = () => {
   if (!isDrawing) return;
   isDrawing = false;
-  currentPath.push('Z');
-  svgPaths.value.push({ svgPath: currentPath.join(' '), name: currentName, photoId: currentPhotoId });
-  currentPath = [];
-  currentName = '';
-  currentPhotoId = '';
+  svgPaths.value[size].EndPath();
+  size=svgPaths.value.length;
 };
 //发送svg路径
 const sendSvgPaths = async () => {
