@@ -6,7 +6,7 @@
       <svg width="100%" height="100%" view-box="`0 0 100% 100%`"
         xmlns="http://www.w3.org/2000/svg"
         :style="{ position: 'absolute'}" @mousedown.prevent="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
-        <path v-for="(svgObject, index) in svgPaths" :key="index" :d="svgObject.svgPath" stroke="black" fill="none"
+        <path v-for="(svgObject, index) in svgPaths" :key="index" :d="svgObject.svgPath.join(' ')" stroke="black" fill="none"
           stroke-width="2"></path>
       </svg>
       <!-- <div v-for="(svgObject, index) in svgPaths" :key="index" v-html="svgObject.svgPath" v-tooltip="svgObject.name"> -->
@@ -62,18 +62,21 @@ const startDrawing = (event) => {
   let svgDrowing = new SVGDrowing(svgPath, currentName, currentPhotoId);
   svgPaths.value.push(svgDrowing);
   svgPaths.value[size].StartPath(event.offsetX, event.offsetY);
+  currentPath.push(`M ${event.offsetX} ${event.offsetY}`);
   isDrawing = true;
 };
 
 const draw = (event) => {
   if (!isDrawing) return;
   svgPaths.value[size].addPath(event.offsetX, event.offsetY);
+  currentPath.push(`L ${event.offsetX} ${event.offsetY}`);
 };
 
 const stopDrawing = () => {
   if (!isDrawing) return;
   isDrawing = false;
   svgPaths.value[size].EndPath();
+  currentPath.push('Z');
   size=svgPaths.value.length;
 };
 //发送svg路径
