@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import src from '@/2.png'
 import Set_photo from './Set_photo.vue';
 import Head from './Head.vue'
 </script>
