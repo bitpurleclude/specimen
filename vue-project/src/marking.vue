@@ -3,7 +3,7 @@
   <div>
     <input type="file" @change="handleFileUpload">
     <img v-if="imageUrl" :src="imageUrl" alt="Preview">
-    <div v-for="(svgPath, index) in svgPaths" :key="index" v-html="svgPath"></div>
+    <div v-for="(svgObject, index) in svgObjects" :key="index" v-html="svgObject.svgPath" v-tooltip="svgObject.name"></div>
   </div>
 </template>
 
