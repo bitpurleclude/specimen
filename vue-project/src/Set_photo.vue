@@ -1,7 +1,7 @@
 <script setup>
 import Show_photo from './Show_photo.vue';
 import { ref, onMounted } from 'vue';
-import src from '@/2.png';
+import src from '@/photo/背面（原图）.jpg';
 //声明一个点击事件
 const url =ref(src);
 const handleClick = (index) => {
