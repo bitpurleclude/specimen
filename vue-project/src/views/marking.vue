@@ -2,7 +2,7 @@
 <template>
   <div>
     <input type="file" @change="handleFileUpload">
-    <<img ref="imgRef" :src="imageUrl" alt="Preview" @mousedown="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
+    <img ref="imgRef" :src="imageUrl" alt="Preview" @mousedown="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
     <div v-for="(svgObject, index) in svgObjects" :key="index" v-html="svgObject.svgPath" v-tooltip="svgObject.name"></div>
     <button @click="sendSvgPaths">发送 SVG 路径</button>
   </div>
