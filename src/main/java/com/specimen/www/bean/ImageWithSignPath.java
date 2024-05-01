@@ -16,21 +16,20 @@ public class ImageWithSignPath {
     private String svgName;
     @TableField("img_id")
     private int imageId;
+    private int width;
+    private int height;
 
     public ImageWithSignPath() {
     }
 
-    public ImageWithSignPath(int id, String svgPath, int imageId) {
-        this.id = id;
-        this.svgPath = svgPath;
-        this.imageId = imageId;
-    }
 
-    public ImageWithSignPath(int id, String svgPath, String svgName, int imageId) {
+    public ImageWithSignPath(int id, String svgPath, String svgName, int imageId, int width, int height) {
         this.id = id;
         this.svgPath = svgPath;
         this.svgName = svgName;
         this.imageId = imageId;
+        this.width = width;
+        this.height = height;
     }
 
     /**
@@ -99,5 +98,37 @@ public class ImageWithSignPath {
      */
     public void setSvgName(String svgName) {
         this.svgName = svgName;
+    }
+
+    /**
+     * 获取
+     * @return width
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * 设置
+     * @param width
+     */
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    /**
+     * 获取
+     * @return height
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * 设置
+     * @param height
+     */
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

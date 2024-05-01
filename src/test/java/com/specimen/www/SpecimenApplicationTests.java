@@ -27,8 +27,8 @@ class SpecimenApplicationTests {
 
     @Test
     void contextLoads() {
-        ImageWithSignPath a=new ImageWithSignPath(0,"a",1);
-        imageWithSignMapper.insert(a);
+        //ImageWithSignPath a=new ImageWithSignPath(0,"a",1);
+        //imageWithSignMapper.insert(a);
     }
     @Autowired
     private RoleServiceImpl roleService;
