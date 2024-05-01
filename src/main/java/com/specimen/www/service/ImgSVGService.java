@@ -5,5 +5,6 @@ import com.specimen.www.bean.ImageWithSignPath;
 public interface ImgSVGService {
     void addSVG(ImageWithSignPath imageWithSignPath);
 
-    void addSVG(String svgPath, int imgId);
+
+    void addSVG(String svgPath, int imgId, String svgName);
 }

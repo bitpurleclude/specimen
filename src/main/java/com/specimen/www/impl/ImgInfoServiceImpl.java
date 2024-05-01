@@ -30,6 +30,10 @@ public class ImgInfoServiceImpl implements ImgInfoService {
         return imgInfos.get(0);
     }
     @Override
+    public ImgInfo getImgInfoById(int id){
+        return imgInfoMapper.selectById(id);
+    }
+    @Override
     public List<ImgInfo> getAllImgInfo(){
         return imgInfoMapper.selectList(null);
     }
