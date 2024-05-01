@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import Vue from 'vue'
+/* import Vue from 'vue' */
 import VTooltip from 'v-tooltip'
 
 Vue.use(VTooltip)
