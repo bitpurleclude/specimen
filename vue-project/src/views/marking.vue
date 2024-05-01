@@ -1,16 +1,24 @@
-
 <template>
   <div>
     <input type="file" @change="handleFileUpload">
-    <img ref="imgRef" :src="imageUrl" alt="Preview" @mousedown.prevent="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
-    <div v-for="(svgObject, index) in svgPaths" :key="index" v-html="svgObject.svgPath" v-tooltip="svgObject.name"></div>
+    <div class="container" :style="{ position: 'relative' }">
+      <img :src="imageUrl" alt="Preview" @mousedown.prevent="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
+      <svg width="100%" height="100%" view-box="`0 0 100% 100%`"
+        xmlns="http://www.w3.org/2000/svg"
+        :style="{ position: 'absolute'}" @mousedown.prevent="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
+        <path v-for="(svgObject, index) in svgPaths" :key="index" :d="svgObject.svgPath" stroke="black" fill="none"
+          stroke-width="2"></path>
+      </svg>
+      <!-- <div v-for="(svgObject, index) in svgPaths" :key="index" v-html="svgObject.svgPath" v-tooltip="svgObject.name"> -->
+      <!-- </div> -->
+    </div>
     <button @click="sendSvgPaths">发送 SVG 路径</button>
   </div>
 </template>
 
 <script setup>
-const photoId=-1;
-import {onMounted, ref} from 'vue';
+const photoId = -1;
+import { onMounted, ref } from 'vue';
 //获取img并展示
 const imgName = ref(null);
 const imageUrl = ref(null);
@@ -27,12 +35,12 @@ const handleFileUpload = event => {
 };
 //获取svg路径
 const svgPaths = ref([]);
-const getSvgPaths = () =>{
+const getSvgPaths = () => {
   fetch('/api/svg-paths')
-      .then(response => response.json())
-      .then(data => {
-        svgPaths.value = data;
-      });
+    .then(response => response.json())
+    .then(data => {
+      svgPaths.value = data;
+    });
 };
 //绘制svg路径
 import { reactive } from 'vue';
@@ -77,7 +85,7 @@ const sendSvgPaths = async () => {
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
-    }else {
+    } else {
       newSvgPaths.value = [];
     }
 
@@ -88,9 +96,34 @@ const sendSvgPaths = async () => {
   }
 };
 onMounted(() => {
+  adjustImageSize();
 });
+const adjustImageSize = () => {
+  const imgElement = imageUrl.value;
+  if (imgElement) {
+    // 如果图片已加载完成，则直接计算尺寸
+    if (imgElement.complete) {
+      calculateImageSize(imgElement);
+    } else {
+      // 否则，设置onload监听器等待图片加载完成
+      imgElement.onload = () => {
+        calculateImageSize(imgElement);
+      };
+    }
+  }
+};
+const calculateImageSize = (img) => {
+  imageSize.value = {
+    width: img.offsetWidth,
+    height: img.offsetHeight,
+  };
+};
 </script>
 
 <style scoped>
-
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>

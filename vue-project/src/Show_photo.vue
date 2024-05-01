@@ -19,15 +19,18 @@ for (let i = 0; i < svgData.value.length; i++) {
 }
 const imageSize = ref({ left: 0, top: 0, width: 0, height: 0, realWidth: 0, realHeight: 0, xScale: 1, yScale: 1 });
 const imgRef = ref(null);
-const activeSVGPaths = computed(() =>{
+const activeSVGPaths = computed(() => {
   return svgObjects.value.filter(svgObj => svgObj.isOn).map(svgObj => svgObj.svgPath)
 });
 console.log(activeSVGPaths)
+const visible = ref(false);
 const onMousesvg = (index) => {
   svgObjects.value[index].toggle();
+  visible.value = true;
 };
 const outMousesvg = (index) => {
   svgObjects.value[index].toggle();
+  visible.value = false;
 };
 
 const adjustImageSize = () => {
@@ -63,14 +66,17 @@ const calculateImageSize = (img) => {
     <!-- 渲染图片 -->
     <img ref="imgRef" :src="image_url" alt="..." width="100%" height="100%" />
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
-    <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 ${imageSize.width} ${imageSize.height}`"
-      xmlns="http://www.w3.org/2000/svg"
-      :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
-      <path v-for="(path, index) in activeSVGPaths" :key="index" :d="path" stroke="black" fill="none" stroke-width="2">
-      </path>
-      <path v-for="(path, index) in svgData" :key="`overlay-${index}`" :d="path" fill="transparent" fill-opacity="0"
-        style="cursor: pointer;" @mouseover="onMousesvg(index)" @mouseout="outMousesvg(index)"></path>
-    </svg>
+    <el-tooltip :visible="visible">
+      <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 ${imageSize.width} ${imageSize.height}`"
+        xmlns="http://www.w3.org/2000/svg"
+        :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
+        <path v-for="(path, index) in activeSVGPaths" :key="index" :d="path" stroke="black" fill="none"
+          stroke-width="2">
+        </path>
+        <path v-for="(path, index) in svgData" :key="`overlay-${index}`" :d="path" fill="transparent" fill-opacity="0"
+          style="cursor: pointer;" @mouseover="onMousesvg(index)" @mouseout="outMousesvg(index)"></path>
+      </svg>
+    </el-tooltip>
   </div>
 </template>
 
