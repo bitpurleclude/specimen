@@ -1,4 +1,3 @@
-import axios from 'axios'
 import request from '@/util/request.js'
 
 export function getjpgService(name) {
