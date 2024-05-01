@@ -6,7 +6,4 @@ export class SVGData {
     toggle() {
       this.isOn = !this.isOn;
     }
-    getsvg(){
-      return this.svgPath;
-    }
 }
