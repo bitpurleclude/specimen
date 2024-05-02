@@ -6,9 +6,7 @@ export function getallService() {
 
 export function getjpgService(imgId) {
     console.log(imgId);
-    const imgIdJsonString = JSON.stringify(imgId);
-    console.log(imgIdJsonString);
-    return request.post('/api/getImgById',   imgId );
+    return request.post('/api/getImgById', imgId ,{ responseType: 'blob' });
 }
 
 export function getsvgService(id) {

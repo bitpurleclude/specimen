@@ -10,10 +10,13 @@ const img = ref([]);
 const src = ref([]);
 const getimage = async function () {
   for (let i = 0; i < img.value.length; i++) {
-    if(img.value[i] == null) continue;
+    if (img.value[i] == null) continue;
     let data = await getjpgService(img.value[i]);
-    src.value.push(data);
+    let image = document.createElement('img');
+    image.src = URL.createObjectURL(data);
+    src.value.push(image.src);
   }
+  console.log(src.value);
   if (src.value[0] == null) {
     src.value[0] = url;
     img.value[0] = 11;
@@ -27,11 +30,9 @@ const getimformation = async function () {
     else { img.value.push({ imgId: null }); }
   }//获取图片id
   getimage();
-  console.log(src.value)
 }//获取信息函数
 getimformation();
 //console.log(src.value);
-
 
 //声明一个点击事件
 const store = useStore();
