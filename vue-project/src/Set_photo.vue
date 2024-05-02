@@ -10,6 +10,7 @@ const img = ref([]);
 const src = ref([]);
 const getimage = async function () {
   for (let i = 0; i < img.value.length; i++) {
+    if(img.value[i] == null) continue;
     let data = await getjpgService(img.value[i]);
     src.value.push(data);
   }

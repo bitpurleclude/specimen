@@ -5,7 +5,9 @@ export function getallService() {
 }
 
 export function getjpgService(imgId) {
+    console.log(imgId);
     const imgIdJsonString = JSON.stringify(imgId);
+    console.log(imgIdJsonString);
     return request.post('/api/getImgById', { params: { imgIdJsonString } });
 }
 
