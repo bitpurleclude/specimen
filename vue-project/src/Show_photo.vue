@@ -24,13 +24,20 @@ const activeSVGPaths = computed(() => {
 });
 console.log(activeSVGPaths)
 const visible = ref(false);
-const onMousesvg = (index) => {
+const tooltipX = ref(0);
+const tooltipY = ref(0);
+const onMousesvg = (index, event) => {
   svgObjects.value[index].toggle();
-  visible.value = true;
+  // 设置tooltip的位置为点击坐标
+  tooltipX.value = event.clientX - 300
+  tooltipY.value = event.clientY - 60
+
+  // 显示tooltip
+  visible.value = !visible.value;
 };
 const outMousesvg = (index) => {
   svgObjects.value[index].toggle();
-  visible.value = false;
+  visible.value = !visible.value;
 };
 
 const adjustImageSize = () => {
@@ -59,6 +66,35 @@ const calculateImageSize = (img) => {
     top: img.offsetTop
   };
 };
+
+
+const tipout = (event) => {
+  // 设置tooltip的位置为点击坐标
+  tooltipX.value = event.clientX - 300 - (imageSize.value.left)
+  tooltipY.value = event.clientY - 60 - (imageSize.value.top)
+
+  // 显示tooltip
+  visible.value = !visible.value;
+};
+const getImageCenter = () => {
+  return {
+    x: this.imageSize.width / 2,
+    y: this.imageSize.height / 2,
+  };
+};
+
+const getSvgCenter = (index) => {
+  const svgElement = this.$refs[`svgElementRef-${index}`][0];
+  if (svgElement) {
+    const { left, top, width, height } = svgElement.getBoundingClientRect();
+    return {
+      x: left + width / 2,
+      y: top + height / 2,
+    };
+  }
+  return null;
+};
+
 </script>
 
 <template>
@@ -66,17 +102,20 @@ const calculateImageSize = (img) => {
     <!-- 渲染图片 -->
     <img ref="imgRef" :src="image_url" alt="..." width="100%" height="100%" />
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
-    <el-tooltip :visible="visible">
-      <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 ${imageSize.width} ${imageSize.height}`"
-        xmlns="http://www.w3.org/2000/svg"
-        :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
-        <path v-for="(path, index) in activeSVGPaths" :key="index" :d="path" stroke="black" fill="none"
-          stroke-width="2">
-        </path>
-        <path v-for="(path, index) in svgData" :key="`overlay-${index}`" :d="path" fill="transparent" fill-opacity="0"
-          style="cursor: pointer;" @mouseover="onMousesvg(index)" @mouseout="outMousesvg(index)"></path>
-      </svg>
-    </el-tooltip>
+    <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 ${imageSize.width} ${imageSize.height}`"
+      xmlns="http://www.w3.org/2000/svg"
+      :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
+      <path v-for="(path, index) in activeSVGPaths" :key="index" :d="path" stroke="black" fill="none" stroke-width="2">
+      </path>
+      <path v-for="(path, index) in svgData" :key="`overlay-${index}`" :d="path" fill="transparent" fill-opacity="0"
+        style="cursor: pointer;" @mouseover="onMousesvg(index, $event)" @mouseout="outMousesvg(index)">
+      </path>
+    </svg>
+    <!-- 渲染tooltip -->
+    <div v-if="visible"
+      :style="{ position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block' }">
+      <span>Tooltip</span>
+    </div>
   </div>
 </template>
 
