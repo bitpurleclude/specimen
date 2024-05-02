@@ -30,6 +30,7 @@ public class MarkingController {
     private ImgSVGServiceImpl imgSVGService;
     @Autowired
     private ImgUtil imgUtil;
+    @CrossOrigin
     @RequestMapping("/marking")
     public ResponseEntity<String> markingPhoto(@RequestParam("svgPath")String svgPath,
                                        @RequestParam("svgName") String svgName,
@@ -51,7 +52,7 @@ public class MarkingController {
         }
         return new ResponseEntity<>("处理成功", HttpStatus.OK);
     }
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin
     @RequestMapping("/SendSVGPath")
     public ResponseEntity<String> SendSVGPath(@RequestParam("file") MultipartFile file,
                                               @RequestParam("svgPaths") String svgPathsString) {

@@ -8,6 +8,7 @@ import com.specimen.www.util.ImgUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ public class ShowPageController {
     private ImgInfoServiceImpl imgInfoService;
     @Autowired
     private ImgUtil imgUtil;
+    @CrossOrigin
     @RequestMapping("/getImgByName")
     public ResponseEntity<byte[]> getImgByName(@RequestBody ImgName imgName) {
         ImgInfo imgInfoByName = imgInfoService.getImgInfoByName(imgName.getName());
@@ -35,6 +37,7 @@ public class ShowPageController {
             return null;
         }
     }
+    @CrossOrigin
     @RequestMapping("/getImgById")
     public ResponseEntity<byte[]> getImgById(@RequestBody ImgId imgId) {
         ImgInfo imgInfoById = imgInfoService.getImgInfoById(imgId.getImgId());
@@ -45,6 +48,7 @@ public class ShowPageController {
             return null;
         }
     }
+    @CrossOrigin
     @RequestMapping("/getAllImgInfo")
     public List<ImgInfo> getAllImgInfo(){
         return imgInfoService.getAllImgInfo();
