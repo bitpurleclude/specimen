@@ -13,13 +13,14 @@ import java.util.List;
 public class ImgSVGServiceImpl implements ImgSVGService {
     @Autowired
     private ImageWithSignMapper imageWithSignMapper;
-    public List<String> getSVGByImgId(int imgId){
+    public List<ImageWithSignPath> getSVGByImgId(int imgId){
         List<ImageWithSignPath> imageWithSignPaths = imageWithSignMapper.selectList(new QueryWrapper<ImageWithSignPath>().eq("img_id", imgId));
-        ArrayList<String> svgs = new ArrayList<>();
-        for (ImageWithSignPath imageWithSignPath : imageWithSignPaths) {
-            svgs.add(imageWithSignPath.getSvgPath());
-        }
-        return svgs;
+        return imageWithSignPaths;
+//        ArrayList<String> svgs = new ArrayList<>();
+//        for (ImageWithSignPath imageWithSignPath : imageWithSignPaths) {
+//            svgs.add(imageWithSignPath.getSvgPath());
+//        }
+//        return svgs;
     }
     @Override
     public void addSVG(ImageWithSignPath imageWithSignPath){

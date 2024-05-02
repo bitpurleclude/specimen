@@ -1,5 +1,6 @@
 package com.specimen.www.controller;
 
+import com.specimen.www.bean.ImageWithSignPath;
 import com.specimen.www.bean.ImgId;
 import com.specimen.www.impl.ImgSVGServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,7 @@ public class SVGController {
     private ImgSVGServiceImpl imgSVGService;
     @CrossOrigin
     @RequestMapping("/api/GetSVGById")
-    public List<String> getSVGById(@RequestBody ImgId imgId) {
-        List<String> svgByImgId = imgSVGService.getSVGByImgId(imgId.getImgId());
-        return svgByImgId;
+    public List<ImageWithSignPath> getSVGById(@RequestBody ImgId imgId) {
+        return imgSVGService.getSVGByImgId(imgId.getImgId());
     }
 }
