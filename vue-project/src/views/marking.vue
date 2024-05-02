@@ -18,12 +18,13 @@
 
 <script setup>
 const photoId = -1;
+let file = null;
 import { onMounted, ref  } from 'vue';
 //获取img并展示
 const imgName = ref(null);
 const imageUrl = ref(null);
 const handleFileUpload = event => {
-  const file = event.target.files[0];
+  file = event.target.files[0];
   if (file) {
     imgName.value = file.name;
     const reader = new FileReader();
@@ -83,27 +84,49 @@ const stopDrawing = () => {
   size=svgPaths.value.length;
 };
 //发送svg路径
+const SendPath = "https://localhost:8443/";
 const sendSvgPaths = async () => {
-  try {
-    const response = await fetch('/api/svg-paths', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newSvgPaths.value),
-    });
+  if (photoId!=-1){
+    try {
+      const response = await fetch(SendPath+'SendSVGPathWithId', {
+        method: 'POST',
+        body:newSvgPaths.value,
+      });
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    } else {
-      newSvgPaths.value = [];
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      } else {
+        newSvgPaths.value = [];
+      }
+
+      const data = await response.json();
+      console.log('Response:', data);
+    } catch (error) {
+      console.error('Error:', error);
     }
+  }else {
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('svgPaths', JSON.stringify(newSvgPaths.value));
+    try {
+      const response = await fetch(SendPath+'SendSVGPath', {
+        method: 'POST',
+        body: formData,
+      });
 
-    const data = await response.json();
-    console.log('Response:', data);
-  } catch (error) {
-    console.error('Error:', error);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      } else {
+        newSvgPaths.value = [];
+      }
+
+      const data = await response.json();
+      console.log('Response:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
+
 };
 onMounted(() => {
   adjustImageSize();
