@@ -2,14 +2,14 @@ export class SVGDrowing {
     svgPath = [];
     svgName = '';
     imageId = '';
-    weight = 0;
+    wight = 0;
     height = 0;
     description = '';
     constructor(svgPath,name,photoId,weight,height,description = false) {
         this.svgPath = [...svgPath];
         this.svgName = name;
         this.imageId = photoId;
-        this.weight = weight;
+        this.wight = weight;
         this.height = height;
         this.description = description;
     }
@@ -26,7 +26,7 @@ export class SVGDrowing {
         this.svgName = name;
     }
     setWeightHeight(weight,height) {
-        this.weight = weight;
+        this.wight = weight;
         this.height = height;
     }
     setDescription(description) {
