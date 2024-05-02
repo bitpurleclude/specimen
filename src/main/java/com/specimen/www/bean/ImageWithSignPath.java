@@ -18,6 +18,7 @@ public class ImageWithSignPath {
     private int imageId;
     private int width;
     private int height;
+    private String description;
 
     public ImageWithSignPath() {
     }
@@ -30,6 +31,16 @@ public class ImageWithSignPath {
         this.imageId = imageId;
         this.width = width;
         this.height = height;
+    }
+
+    public ImageWithSignPath(int id, String svgPath, String svgName, int imageId, int width, int height, String description) {
+        this.id = id;
+        this.svgPath = svgPath;
+        this.svgName = svgName;
+        this.imageId = imageId;
+        this.width = width;
+        this.height = height;
+        this.description = description;
     }
 
     /**
@@ -130,5 +141,21 @@ public class ImageWithSignPath {
      */
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    /**
+     * 获取
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * 设置
+     * @param description
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

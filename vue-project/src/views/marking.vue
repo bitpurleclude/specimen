@@ -18,14 +18,7 @@
 
 <script setup>
 const photoId = -1;
-import { onMounted, ref , createApp } from 'vue';
-import App from "@/App.vue";
-//import tooltip from "@/directives/tooltip.js";
-//import "@/assets/tooltip.css";
-
-const app = createApp(App);
-//app.directive("tooltip", tooltip);
-//app.mount("#app");
+import { onMounted, ref  } from 'vue';
 //获取img并展示
 const imgName = ref(null);
 const imageUrl = ref(null);
