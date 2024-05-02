@@ -1,22 +1,21 @@
 <script setup>
 import Show_photo from './Show_photo.vue';
-import { ref, onMounted, provide } from 'vue';
+import { ref, computed } from 'vue';
 import src from '@/photo/背面（原图）.jpg';
+import { useStore } from 'vuex';
 //声明一个点击事件
-const url =ref(src);
+const store = useStore();
+const url = ref(src);
 const handleClick = (index) => {
   console.log('click');
   selectedImageIndex.value = index;
-  singleView.value = true;
+  store.commit('setGlobalVar', true);
 };
+
 const selectedImageIndex = ref(-1); // 初始未选择
-const singleView = ref(false); // 是否处于单张图片展示模式
-//计算child相对于parent的位置，并且将相对位置传递给child
-const parent = ref(null);
-const child = ref(null);
-onMounted(() => {
-  provide('parent', parent);
-});
+const singleView = computed(() => {
+  return store.state.globalVar;
+});  // 是否处于单张图片展示模式
 </script>
 
 <template>
@@ -51,7 +50,7 @@ onMounted(() => {
     </el-row>
   </el-col>
   <div v-else class="single">
-    <Show_photo/>
+    <Show_photo />
   </div>
 </template>
 
@@ -86,7 +85,7 @@ onMounted(() => {
   align-items: center;
 }
 
-.single{
+.single {
   display: flex;
   justify-content: center;
   align-items: center;

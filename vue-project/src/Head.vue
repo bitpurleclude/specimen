@@ -16,8 +16,7 @@
                                 src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" alt="头像"
                                 style="object-fit: cover;"></span><span data-v-0a9bf5fc=""
                             class="text-large font-600 mr-3">
-                            游客 </span><span data-v-0a9bf5fc="" class="text-sm mr-2"
-                            style="color: var(--el-text-color-regular);"> 查看标本 </span><span data-v-0a9bf5fc=""
+                            游客 </span><el-button plain @click="toindex"> 查看标本 </el-button><span data-v-0a9bf5fc=""
                             class="el-tag el-tag--primary el-tag--light"><span
                                 class="el-tag__content">查看</span><!--v-if--></span>
                     </div>
@@ -38,12 +37,18 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex';
+const store = useStore();
 const router = useRouter()
 const tomarking = () => {
     router.push('/marking')
 }
 const totext = () => {
     router.push('/text')
+}
+const toindex = () => {
+    store.commit('setGlobalVar', false)
+    router.push('/')
 }
 </script>
 

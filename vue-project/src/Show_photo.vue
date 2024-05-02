@@ -33,7 +33,6 @@ console.log(activeSVGPaths)
 const visible = ref(false);
 const tooltipX = ref(0);
 const tooltipY = ref(0);
-//通过父组件传递parent和child，计算tooltip的位置
 const onMousesvg = (index, event) => {
   svgObjects.value[index].toggle();
 
@@ -102,7 +101,7 @@ const getSvgCenter = (index) => {
 </script>
 
 <template>
-  <div ref="child" class="container" :style="{ position: 'relative', width: '500px', height: '500px' }" >
+  <div ref="child" class="container" :style="{ position: 'relative'}" >
     <!-- 渲染图片 -->
     <img ref="imgRef" :src="image_url" alt="..." width="100%" height="100%" />
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
@@ -114,13 +113,14 @@ const getSvgCenter = (index) => {
     <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 ${imageSize.width} ${imageSize.height}`"
       xmlns="http://www.w3.org/2000/svg"
       :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
+
       <path v-for="(path, index) in activeSVGPaths" :key="index" :d="path" stroke="black" fill="none" stroke-width="2">
       </path>
       <path v-for="(path, index) in svgData" :key="`overlay-${index}`" :d="path" fill="transparent" fill-opacity="0"
         style="cursor: pointer;" @mouseover="onMousesvg(index, $event)" @mouseout="outMousesvg(index)">
       </path>
     </svg>
-    
+
   </div>
 </template>
 
