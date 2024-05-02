@@ -31,12 +31,6 @@ const handleFileUpload = event => {
     imgName.value = file.name;
     const reader = new FileReader();
     reader.onload = e => {
-      let img = new Image();
-
-      img.onload = function() {
-        wight = img.width;
-        height= img.height// 输出图片宽度
-      };
       imageUrl.value = e.target.result;
     };
     reader.readAsDataURL(file);
@@ -115,9 +109,6 @@ const sendSvgPaths = async () => {
       } else {
         newSvgPaths.value = [];
       }
-
-      const data = await response.json();
-      console.log('Response:', data);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -136,9 +127,6 @@ const sendSvgPaths = async () => {
       } else {
         newSvgPaths.value = [];
       }
-
-      const data = await response.json();
-      console.log('Response:', data);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -163,6 +151,8 @@ const adjustImageSize = () => {
   }
 };
 const calculateImageSize = (img) => {
+  wight = img.width;
+  height = img.height;
   imageSize.value = {
     width: img.offsetWidth,
     height: img.offsetHeight,

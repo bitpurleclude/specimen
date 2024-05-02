@@ -54,7 +54,7 @@ public class MarkingController {
     @CrossOrigin(origins = "http://localhost:5173")
     @RequestMapping("/SendSVGPath")
     public ResponseEntity<String> SendSVGPath(@RequestParam("file") MultipartFile file,
-                                              @RequestParam("svgPaths") String svgPathsString) throws JsonProcessingException {
+                                              @RequestParam("svgPaths") String svgPathsString) {
         List<ImageWithSignPath> svgPaths = JSON.parseArray(svgPathsString, ImageWithSignPath.class);
             try {
             String md5 = GetImgMD5.getMD5(GetImgMD5.multipartFileToBufferedImage(file));
