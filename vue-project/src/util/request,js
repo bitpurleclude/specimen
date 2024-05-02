@@ -1,6 +1,6 @@
 import axios from 'axios'
-const baseURL = 'http://[240c:cd22:138f:dbd:a8e9:781d:f34e:2]:8080';
-const instance = axios.create({baseURL,withCredentials: true});
+const baseURL = 'https://[240c:cd22:138f:dbd:a8e9:781d:f34e:2]:8080';
+const instance = axios.create({baseURL});
 
 //定义拦截响应器
 instance.interceptors.response.use(
