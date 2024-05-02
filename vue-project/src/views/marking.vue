@@ -17,6 +17,8 @@
 </template>
 
 <script setup>
+let height=0;
+let wight=0;
 const photoId = -1;
 let file = null;
 import { onMounted, ref  } from 'vue';
@@ -29,6 +31,12 @@ const handleFileUpload = event => {
     imgName.value = file.name;
     const reader = new FileReader();
     reader.onload = e => {
+      let img = new Image();
+
+      img.onload = function() {
+        wight = img.width;
+        height= img.height// 输出图片宽度
+      };
       imageUrl.value = e.target.result;
     };
     reader.readAsDataURL(file);
@@ -55,12 +63,16 @@ let isDrawing = false;
 let currentName = '';
 let currentPhotoId = '';
 
+
 const startDrawing = (event) => {
   let svgPath = [];  // SVG路径，这是一个数组
   currentName = imgName;
   currentPhotoId = photoId;
   let Name='';
-  let svgDrowing = new SVGDrowing(svgPath, Name, currentPhotoId);
+  let description='';
+  let copiedWidth = wight;
+  let copiedHeight = height;
+  let svgDrowing = new SVGDrowing(svgPath, Name, currentPhotoId, copiedWidth, copiedHeight, description);
   svgPaths.value.push(svgDrowing);
   svgPaths.value[size].StartPath(event.offsetX, event.offsetY);
   newSvgPaths.value.push(svgDrowing);
@@ -80,6 +92,11 @@ const stopDrawing = () => {
   if (svgPathInput) {
     // 如果用户输入了SVG的路径，将其添加到svgPaths中
     svgPaths.value[size].setName(svgPathInput);
+  }
+  let svgPathDesInput = window.prompt("请输入SVG的描述:");
+  if (svgPathDesInput) {
+    // 如果用户输入了SVG的路径，将其添加到svgPaths中
+    svgPaths.value[size].setDescription(svgPathDesInput);
   }
   size=svgPaths.value.length;
 };
