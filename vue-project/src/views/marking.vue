@@ -13,6 +13,7 @@
       <!-- </div> -->
     </div>
     <button @click="sendSvgPaths">发送 SVG 路径</button>
+    <button @click="toindex">返回主页</button>
   </div>
 </template>
 
@@ -22,6 +23,7 @@ let wight=0;
 const photoId = -1;
 let file = null;
 import { onMounted, ref  } from 'vue';
+import { useRouter } from 'vue-router';
 //获取img并展示
 const imgName = ref(null);
 const imageUrl = ref(null);
@@ -35,6 +37,10 @@ const handleFileUpload = event => {
     };
     reader.readAsDataURL(file);
   }
+};
+const router = useRouter()
+const toindex = () => {
+  router.push('/')
 };
 //获取svg路径
 const svgPaths = ref([]);
