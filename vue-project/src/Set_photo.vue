@@ -1,6 +1,6 @@
 <script setup>
 import Show_photo from './Show_photo.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, provide } from 'vue';
 import src from '@/photo/背面（原图）.jpg';
 //声明一个点击事件
 const url =ref(src);
@@ -11,10 +11,16 @@ const handleClick = (index) => {
 };
 const selectedImageIndex = ref(-1); // 初始未选择
 const singleView = ref(false); // 是否处于单张图片展示模式
+//计算child相对于parent的位置，并且将相对位置传递给child
+const parent = ref(null);
+const child = ref(null);
+onMounted(() => {
+  provide('parent', parent);
+});
 </script>
 
 <template>
-  <el-col v-if="!singleView">
+  <el-col v-if="!singleView" :ref="parent">
     <el-row>
       <el-col :span="6" class="photo">
         <img :src="url" alt="" @click="handleClick(1)" class="image-container">

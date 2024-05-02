@@ -1,11 +1,18 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed,inject } from 'vue'
 import url from '@/photo/背面（原图）.jpg'
 import { SVGData } from './data/SVGData';
 
 //图片大小获取
+const child = ref(null);
+const childRect = ref(null);
 onMounted(() => {
   adjustImageSize();
+  // 获取元素的边界框
+  if (!child.value) {
+    console.error('Child element is not available');
+  }
+  else childRect.value = child.value.getBoundingClientRect();
 });
 const image_url = ref(url)
 const svgData = ref([
@@ -26,11 +33,17 @@ console.log(activeSVGPaths)
 const visible = ref(false);
 const tooltipX = ref(0);
 const tooltipY = ref(0);
+//通过父组件传递parent和child，计算tooltip的位置
 const onMousesvg = (index, event) => {
   svgObjects.value[index].toggle();
-  // 设置tooltip的位置为点击坐标
-  tooltipX.value = event.clientX - 300
-  tooltipY.value = event.clientY - 60
+
+  if (!child.value) {
+    console.error('Child element is not available');
+    return; // 如果元素不可用，则直接返回
+  }
+  // 设置tooltip的位置
+  tooltipX.value = event.clientX  - childRect.value.left;
+  tooltipY.value = event.clientY - childRect.value.top;
 
   // 显示tooltip
   visible.value = !visible.value;
@@ -67,15 +80,6 @@ const calculateImageSize = (img) => {
   };
 };
 
-
-const tipout = (event) => {
-  // 设置tooltip的位置为点击坐标
-  tooltipX.value = event.clientX - 300 - (imageSize.value.left)
-  tooltipY.value = event.clientY - 60 - (imageSize.value.top)
-
-  // 显示tooltip
-  visible.value = !visible.value;
-};
 const getImageCenter = () => {
   return {
     x: this.imageSize.width / 2,
@@ -98,7 +102,7 @@ const getSvgCenter = (index) => {
 </script>
 
 <template>
-  <div class="container" :style="{ position: 'relative', width: '500px', height: '500px' }">
+  <div ref="child" class="container" :style="{ position: 'relative', width: '500px', height: '500px' }" >
     <!-- 渲染图片 -->
     <img ref="imgRef" :src="image_url" alt="..." width="100%" height="100%" />
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
