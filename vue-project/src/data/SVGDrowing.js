@@ -23,7 +23,7 @@ export class SVGDrowing {
         this.svgPath.push('Z');
     }
     setName(name) {
-        this.name = name;
+        this.svgName = name;
     }
     setWeightHeight(weight,height) {
         this.weight = weight;

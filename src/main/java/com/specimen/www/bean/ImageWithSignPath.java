@@ -1,6 +1,7 @@
 package com.specimen.www.bean;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -11,13 +12,17 @@ public class ImageWithSignPath {
     @TableId(type = IdType.AUTO)
     private int id;
     @TableField("path")
+    @JSONField(name="svgPath")
     private String svgPath;
     @TableField("svgName")
+    @JSONField(name="svgName")
     private String svgName;
     @TableField("img_id")
+    @JSONField(name="imageId")
     private int imageId;
     private int width;
     private int height;
+    @JSONField(name="description")
     private String description;
 
     public ImageWithSignPath() {
