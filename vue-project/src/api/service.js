@@ -1,4 +1,8 @@
-import request from '@/util/request.js'
+import request from '@/util/request,js'
+
+export function getallService() {
+    return request.get('/getAllImgInfo');
+}
 
 export function getjpgService(name) {
     return request.get('/getImgByName', { params: name });
