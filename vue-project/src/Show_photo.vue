@@ -106,6 +106,11 @@ const getSvgCenter = (index) => {
     <!-- 渲染图片 -->
     <img ref="imgRef" :src="image_url" alt="..." width="100%" height="100%" />
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
+    <!-- 渲染tooltip -->
+    <div v-if="visible"
+      :style="{ position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block' }">
+      <span>Tooltip</span>
+    </div>
     <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 ${imageSize.width} ${imageSize.height}`"
       xmlns="http://www.w3.org/2000/svg"
       :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
@@ -115,11 +120,7 @@ const getSvgCenter = (index) => {
         style="cursor: pointer;" @mouseover="onMousesvg(index, $event)" @mouseout="outMousesvg(index)">
       </path>
     </svg>
-    <!-- 渲染tooltip -->
-    <div v-if="visible"
-      :style="{ position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block' }">
-      <span>Tooltip</span>
-    </div>
+    
   </div>
 </template>
 
