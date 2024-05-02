@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="main">
     <input type="file" @change="handleFileUpload">
     <div class="container" :style="{ position: 'relative' }">
-      <img :src="imageUrl" alt="Preview" @mousedown.prevent="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
+      <img :src="imageUrl" alt="Preview" @mousedown.prevent="startDrawing" @mousemove="draw" @mouseup="stopDrawing" style="width: 1080px;height: 1440px;">
       <svg width="100%" height="100%" view-box="`0 0 100% 100%`"
         xmlns="http://www.w3.org/2000/svg"
         :style="{ position: 'absolute'}" @mousedown.prevent="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
@@ -162,8 +162,28 @@ const calculateImageSize = (img) => {
 </script>
 
 <style scoped>
+#app {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+.main {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  width:100%;
+  height:100%;
+  flex-direction: column;
+  align-items: center;
+  max-width: none;
+}
 .container {
   display: flex;
+  padding: 0;
+  margin: 0;
   justify-content: center;
   align-items: center;
 }

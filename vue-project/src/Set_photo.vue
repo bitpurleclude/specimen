@@ -6,28 +6,30 @@ import { useStore } from 'vuex';
 import url from '@/photo/背面（原图）.jpg'
 
 const All = ref([]);
+const img = ref([]);
 const getAll = async function () {
   let data = await getallService();
+  console.log(data);
   All.value = data;
+  console.log(All.value);
+  for (let i = 0; i < 6; i++) {
+    if (All.value[i] != null) { img.value.push(All.value[i].id); }
+    else { img.value.push(null); }
+  }//获取图片id
 }//获取所有图片信息函数
 getAll();
-const img = ref([]);
-for (let i = 0; i < 6; i++) {
-  if (All.value[i] != null) { img.value.push(All.value[i].id); }
-  else { img.value.push(null); }
-}//获取图片id
 const src = ref([]);
 const getimage = async function () {
   for (let i = 0; i < img.value.length; i++) {
     let data = await getjpgService(img[i]);
     src.value.push(data);
+    if (src.value[0] == null) {
+      src.value[0] = url;
+      img.value[0] = 11;
+    }
   }
 }//获取图片函数
-if (src.value[0] == null) { 
-  src.value[0] = url;
-  img.value[0] = 11;
-}
-else { getimage(); }//获取图片
+getimage()
 //声明一个点击事件
 const store = useStore();
 const handleClick = (index) => {
