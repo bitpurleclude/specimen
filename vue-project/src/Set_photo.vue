@@ -1,8 +1,16 @@
 <script setup>
+import { getallService } from '@/api/service.js'
 import Show_photo from './Show_photo.vue';
 import { ref, computed } from 'vue';
 import src from '@/photo/背面（原图）.jpg';
 import { useStore } from 'vuex';
+
+const All = ref([]);
+const getAll = async function () {
+  let data = await getallService();
+  All.value = data;
+}
+getAll();
 //声明一个点击事件
 const store = useStore();
 const url = ref(src);
@@ -30,14 +38,8 @@ const singleView = computed(() => {
       <el-col :span="6" class="photo">
         <div class="grid-content ep-bg-purple" />
       </el-col>
-      <el-col :span="6" class="photo">
-        <div class="grid-content ep-bg-purple" />
-      </el-col>
     </el-row>
     <el-row>
-      <el-col :span="6" class="photo">
-        <div class="grid-content ep-bg-purple" />
-      </el-col>
       <el-col :span="6" class="photo">
         <div class="grid-content ep-bg-purple" />
       </el-col>
