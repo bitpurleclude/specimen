@@ -1,22 +1,38 @@
 <script setup>
-import { getallService } from '@/api/service.js'
+import { getallService, getjpgService } from '@/api/service.js'
 import Show_photo from './Show_photo.vue';
 import { ref, computed } from 'vue';
-import src from '@/photo/背面（原图）.jpg';
 import { useStore } from 'vuex';
+import url from '@/photo/背面（原图）.jpg'
 
 const All = ref([]);
 const getAll = async function () {
   let data = await getallService();
   All.value = data;
-}
+}//获取所有图片信息函数
 getAll();
+const img = ref([]);
+for (let i = 0; i < 6; i++) {
+  if (All.value[i] != null) { img.value.push(All.value[i].id); }
+  else { img.value.push(null); }
+}//获取图片id
+const src = ref([]);
+const getimage = async function () {
+  for (let i = 0; i < img.value.length; i++) {
+    let data = await getjpgService(img[i]);
+    src.value.push(data);
+  }
+}//获取图片函数
+if (src.value[0] == null) { 
+  src.value[0] = url;
+  img.value[0] = 11;
+}
+else { getimage(); }//获取图片
 //声明一个点击事件
 const store = useStore();
-const url = ref(src);
 const handleClick = (index) => {
   console.log('click');
-  selectedImageIndex.value = index;
+  selectedImageIndex.value = img[index];
   store.commit('setGlobalVar', true);
 };
 
@@ -27,32 +43,38 @@ const singleView = computed(() => {
 </script>
 
 <template>
-  <el-col v-if="!singleView" :ref="parent">
+  <el-col v-if="!singleView">
     <el-row>
       <el-col :span="6" class="photo">
-        <img :src="url" alt="" @click="handleClick(1)" class="image-container">
-      </el-col>
-      <el-col :span="6" class="photo">
+        <img v-if="src[0] != null" :src="src[0]" alt="" @click="handleClick(0)" class="image-container">
         <div class="grid-content ep-bg-purple" />
       </el-col>
       <el-col :span="6" class="photo">
+        <img v-if="src[1] != null" :src="src[1]" alt="" @click="handleClick(1)" class="image-container">
+        <div class="grid-content ep-bg-purple" />
+      </el-col>
+      <el-col :span="6" class="photo">
+        <img v-if="src[2] != null" :src="src[2]" alt="" @click="handleClick(2)" class="image-container">
         <div class="grid-content ep-bg-purple" />
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="6" class="photo">
+        <img v-if="src[3] != null" :src="src[3]" alt="" @click="handleClick(3)" class="image-container">
         <div class="grid-content ep-bg-purple" />
       </el-col>
       <el-col :span="6" class="photo">
+        <img v-if="src[4] != null" :src="src[4]" alt="" @click="handleClick(4)" class="image-container">
         <div class="grid-content ep-bg-purple" />
       </el-col>
       <el-col :span="6" class="photo">
+        <img v-if="src[5] != null" :src="src[5]" alt="" @click="handleClick(5)" class="image-container">
         <div class="grid-content ep-bg-purple" />
       </el-col>
     </el-row>
   </el-col>
   <div v-else class="single">
-    <Show_photo />
+    <Show_photo :id="selectedImageIndex" />
   </div>
 </template>
 

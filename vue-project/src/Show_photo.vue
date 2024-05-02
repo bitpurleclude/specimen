@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed,inject } from 'vue'
+import { onMounted, ref, computed, inject } from 'vue'
 import url from '@/photo/背面（原图）.jpg'
 import { SVGData } from './data/SVGData';
 
@@ -41,7 +41,7 @@ const onMousesvg = (index, event) => {
     return; // 如果元素不可用，则直接返回
   }
   // 设置tooltip的位置
-  tooltipX.value = event.clientX  - childRect.value.left;
+  tooltipX.value = event.clientX - childRect.value.left;
   tooltipY.value = event.clientY - childRect.value.top;
 
   // 显示tooltip
@@ -97,11 +97,17 @@ const getSvgCenter = (index) => {
   }
   return null;
 };
-
+const props = defineProps({
+  svg: {
+    type: Number, // 指定props的类型
+    required: true, // 是否必填
+    default: null // 默认值
+  }
+});
 </script>
 
 <template>
-  <div ref="child" class="container" :style="{ position: 'relative'}" >
+  <div ref="child" class="container" :style="{ position: 'relative' }">
     <!-- 渲染图片 -->
     <img ref="imgRef" :src="image_url" alt="..." width="100%" height="100%" />
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
