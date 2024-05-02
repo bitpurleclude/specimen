@@ -5,7 +5,6 @@ const instance = axios.create({baseURL});
 //定义拦截响应器
 instance.interceptors.response.use(
     result=>{
-        alert("请求成功")
         return result.data;
     },
     err=>{
