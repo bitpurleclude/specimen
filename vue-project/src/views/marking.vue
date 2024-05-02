@@ -7,7 +7,7 @@
         xmlns="http://www.w3.org/2000/svg"
         :style="{ position: 'absolute'}" @mousedown.prevent="startDrawing" @mousemove="draw" @mouseup="stopDrawing">
         <path v-for="(svgObject, index) in svgPaths" :key="index" :d="svgObject.svgPath.join(' ')" stroke="black" fill="none"
-          stroke-width="2"></path>
+          stroke-width="2" v-tooltip="svgObject.name"></path>
       </svg>
       <!-- <div v-for="(svgObject, index) in svgPaths" :key="index" v-html="svgObject.svgPath" v-tooltip="svgObject.name"> -->
       <!-- </div> -->
@@ -18,7 +18,14 @@
 
 <script setup>
 const photoId = -1;
-import { onMounted, ref } from 'vue';
+import { onMounted, ref , createApp } from 'vue';
+import App from "@/App.vue";
+//import tooltip from "@/directives/tooltip.js";
+//import "@/assets/tooltip.css";
+
+const app = createApp(App);
+//app.directive("tooltip", tooltip);
+//app.mount("#app");
 //获取img并展示
 const imgName = ref(null);
 const imageUrl = ref(null);
@@ -58,25 +65,28 @@ const startDrawing = (event) => {
   let svgPath = [];  // SVG路径，这是一个数组
   currentName = imgName;
   currentPhotoId = photoId;
-
-  let svgDrowing = new SVGDrowing(svgPath, currentName, currentPhotoId);
+  let Name='';
+  let svgDrowing = new SVGDrowing(svgPath, Name, currentPhotoId);
   svgPaths.value.push(svgDrowing);
   svgPaths.value[size].StartPath(event.offsetX, event.offsetY);
-  currentPath.push(`M ${event.offsetX} ${event.offsetY}`);
+  newSvgPaths.value.push(svgDrowing);
   isDrawing = true;
 };
 
 const draw = (event) => {
   if (!isDrawing) return;
   svgPaths.value[size].addPath(event.offsetX, event.offsetY);
-  currentPath.push(`L ${event.offsetX} ${event.offsetY}`);
 };
 
 const stopDrawing = () => {
   if (!isDrawing) return;
   isDrawing = false;
   svgPaths.value[size].EndPath();
-  currentPath.push('Z');
+  let svgPathInput = window.prompt("请输入SVG的路径:");
+  if (svgPathInput) {
+    // 如果用户输入了SVG的路径，将其添加到svgPaths中
+    svgPaths.value[size].setName(svgPathInput);
+  }
   size=svgPaths.value.length;
 };
 //发送svg路径
@@ -125,6 +135,7 @@ const calculateImageSize = (img) => {
     height: img.offsetHeight,
   };
 };
+
 </script>
 
 <style scoped>

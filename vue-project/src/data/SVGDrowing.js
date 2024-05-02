@@ -13,4 +13,7 @@ export class SVGDrowing {
     EndPath() {
         this.svgPath.push('Z');
     }
+    setName(name) {
+        this.name = name;
+    }
 }
