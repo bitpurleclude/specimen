@@ -15,7 +15,7 @@ public class SVGController {
     @Autowired
     private ImgSVGServiceImpl imgSVGService;
     @CrossOrigin
-    @RequestMapping("/GetSVGById")
+    @RequestMapping("/api/GetSVGById")
     public List<String> getSVGById(@RequestBody ImgId imgId) {
         List<String> svgByImgId = imgSVGService.getSVGByImgId(imgId.getImgId());
         return svgByImgId;

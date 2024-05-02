@@ -27,7 +27,7 @@ public class ShowPageController {
     @Autowired
     private ImgUtil imgUtil;
     @CrossOrigin
-    @RequestMapping("/getImgByName")
+    @RequestMapping("/api/getImgByName")
     public ResponseEntity<byte[]> getImgByName(@RequestBody ImgName imgName) {
         ImgInfo imgInfoByName = imgInfoService.getImgInfoByName(imgName.getName());
         try {
@@ -38,7 +38,7 @@ public class ShowPageController {
         }
     }
     @CrossOrigin
-    @RequestMapping("/getImgById")
+    @RequestMapping("/api/getImgById")
     public ResponseEntity<byte[]> getImgById(@RequestBody ImgId imgId) {
         ImgInfo imgInfoById = imgInfoService.getImgInfoById(imgId.getImgId());
         try {
@@ -49,7 +49,7 @@ public class ShowPageController {
         }
     }
     @CrossOrigin
-    @RequestMapping("/getAllImgInfo")
+    @RequestMapping("/api/getAllImgInfo")
     public List<ImgInfo> getAllImgInfo(){
         return imgInfoService.getAllImgInfo();
     }
