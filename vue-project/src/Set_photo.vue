@@ -38,7 +38,7 @@ getimformation();
 const store = useStore();
 const handleClick = (index) => {
   console.log('click');
-  selectedImageIndex.value = img[index];
+  selectedImageIndex.value = img.value[index].imgId;
   store.commit('setGlobalVar', true);
 };
 

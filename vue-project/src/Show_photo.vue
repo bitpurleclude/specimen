@@ -41,8 +41,8 @@ const getSvgById=(Id)=>{
       .then(data => {
         for (let i = 0; i < data.length; i++) {
           let svgData = new SVGData(
+              JSON.parse(data[i].svgPath).join(''),
               data[i].id,
-              JSON.parse(data[i].svgPath),
               data[i].svgName,
               data[i].imageId,
               data[i].width,
