@@ -6,10 +6,10 @@ const props = defineProps({
   id: Number,
   svg: {
     type: Number, // 指定props的类型
-    required: true, // 是否必填
     default: null // 默认值
   }
 });
+console.log(props.id);
 //图片大小获取
 const child = ref(null);
 const childRect = ref(null);
