@@ -2,7 +2,14 @@
 import { onMounted, ref, computed, inject } from 'vue'
 import url from '@/photo/背面（原图）.jpg'
 import { SVGData } from './data/SVGData';
-
+const props = defineProps({
+  id: Number,
+  svg: {
+    type: Number, // 指定props的类型
+    required: true, // 是否必填
+    default: null // 默认值
+  }
+});
 //图片大小获取
 const child = ref(null);
 const childRect = ref(null);
@@ -13,40 +20,46 @@ onMounted(() => {
     console.error('Child element is not available');
   }
   else childRect.value = child.value.getBoundingClientRect();
+  getSvgById(props.id);
 });
 //通过id获取svg的路径
-let imgId1={
-  imgId : 11
-}
-let svgDatas = [];
-fetch('http://[240c:cd22:138f:dbd:a8e9:781d:f34e:2]:8080/api/GetSVGById' ,{
-      method: 'POST', // 或者 'PUT'
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(imgId1),
-    }
-) // 替换为你的API URL
-
-    .then(response => response.json())
-    .then(data => {
-      for (let i = 0; i < data.length; i++) {
-        svgDatas.push({
-          id: data[i].id,
-          svgPath:JSON.parse(data[i].svgPath) ,
-          svgName: data[i].svgName,
-          imageId: data[i].imageId,
-          width: data[i].width,
-          height: data[i].height,
-          description: data[i].description});
+const getSvgById=(Id)=>{
+  let imgId1={
+    imgId : Id
+  }
+  let svgDatas = [];
+  fetch('http://[240c:cd22:138f:dbd:a8e9:781d:f34e:2]:8080/api/GetSVGById' ,{
+        method: 'POST', // 或者 'PUT'
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(imgId1),
       }
-      svgDatas=data;
-      console.log(data);
-    })
-    .catch(error => {
-      // 在这里处理任何在请求过程中发生的错误
-      console.error('Error:', error);
-    });
+  ) // 替换为你的API URL
+
+      .then(response => response.json())
+      .then(data => {
+        for (let i = 0; i < data.length; i++) {
+          let svgData = new SVGData(
+              data[i].id,
+              JSON.parse(data[i].svgPath),
+              data[i].svgName,
+              data[i].imageId,
+              data[i].width,
+              data[i].height,
+              data[i].description,
+              false
+          );
+          svgObjects.value.push(svgData);
+        }
+        console.log(data);
+      })
+      .catch(error => {
+        // 在这里处理任何在请求过程中发生的错误
+        console.error('Error:', error);
+      });
+}
+
 const image_url = ref(url)
 const svgData = ref([
 
@@ -58,9 +71,10 @@ const svgData = ref([
   ["M257 93 L257 93 L256 93 L256 93 L256 93 L255 93 L255 92 L254 92 L253 92 L253 91 L252 91 L252 90 L252 90 L251 90 L250 90 L250 89 L249 89 L249 89 L248 89 L248 88 L248 88 L248 87 L248 86 L247 86 L247 85 L246 85 L246 85 L246 84 L245 84 L245 83 L245 82 L244 82 L244 81 L244 81 L244 81 L244 80 L244 79 L244 78 L243 78 L243 77 L242 77 L241 77 L241 77 L240 77 L240 77 L240 76 L239 76 L238 76 L237 76 L236 76 L236 76 L236 76 L237 76 L237 75 L238 75 L239 74 L240 74 L240 73 L240 73 L241 73 L241 73 L242 73 L242 72 L243 72 L243 71 L244 71 L244 71 L245 71 L246 71 L247 71 L248 71 L248 71 L249 71 L250 71 L251 71 L252 71 L252 71 L253 71 L254 71 L255 71 L255 70 L256 70 L256 70 L257 70 L257 69 L258 69 L259 69 L260 69 L260 69 L260 69 L260 68 L261 68 L262 68 L262 67 L262 66 L263 66 L263 65 L264 65 L264 65 L264 65 L264 64 L265 64 L265 63 L266 63 L266 62 L267 62 L268 62 L268 62 L269 62 L269 63 L270 63 L271 63 L271 64 L272 64 L272 64 L273 64 L273 65 L274 65 L275 65 L276 65 L276 65 L277 65 L278 65 L279 65 L280 65 L280 65 L281 65 L282 65 L282 65 L282 66 L282 67 L282 68 L282 69 L282 69 L282 70 L282 71 L281 71 L281 72 L281 73 L281 73 L280 73 L280 74 L280 74 L280 75 L279 75 L279 76 L279 77 L278 77 L278 77 L277 77 L277 78 L277 79 L277 80 L277 81 L277 81 L276 81 L276 82 L276 83 L276 84 L276 85 L276 85 L276 86 L276 87 L276 88 L276 89 L276 89 L276 90 L276 91 L276 92 L276 93 L276 93 L276 93 L275 93 L274 93 L273 93 L272 93 L272 93 L272 94 L271 94 L270 94 L269 94 L268 94 L268 94 L267 94 L266 94 L265 94 L265 93 L264 93 L264 93 L264 93 L263 93 L262 93 L262 92 L261 92 L261 91 L260 91 L260 90 L260 90 L259 90 L258 90 L257 90 L256 90 L256 90 L255 90 L254 90 L253 90 L252 90 L257 93"]
 ])
 const svgObjects = ref([]);
-for (let i = 0; i < svgData.value.length; i++) {
-  svgObjects.value.push(new SVGData(svgData.value[i], false));
-}
+//for (let i = 0; i < svgData.value.length; i++) {
+ // svgObjects.value.push(new SVGData(svgData.value[i], false));
+//}
+
 const imageSize = ref({ left: 0, top: 0, width: 0, height: 0, realWidth: 0, realHeight: 0, xScale: 1, yScale: 1 });
 const imgRef = ref(null);
 const activeSVGPaths = computed(() => {
@@ -134,13 +148,7 @@ const getSvgCenter = (index) => {
   }
   return null;
 };
-const props = defineProps({
-  svg: {
-    type: Number, // 指定props的类型
-    required: true, // 是否必填
-    default: null // 默认值
-  }
-});
+
 
 
 </script>
