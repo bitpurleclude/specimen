@@ -1,5 +1,5 @@
 <script setup>
-import { getallService, getjpgService } from '@/api/service.js'
+import { getallService, getpngService } from '@/api/service.js'
 import Show_photo from './Show_photo.vue';
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
@@ -11,7 +11,7 @@ const src = ref([]);
 const getimage = async function () {
   for (let i = 0; i < img.value.length; i++) {
     if (img.value[i] == null) continue;
-    let data = await getjpgService(img.value[i]);
+    let data = await getpngService(img.value[i]);
     let image = document.createElement('img');
     image.src = URL.createObjectURL(data);
     src.value.push(image.src);

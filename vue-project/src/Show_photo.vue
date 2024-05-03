@@ -1,7 +1,8 @@
 <script setup>
 import { onMounted, ref, computed, inject } from 'vue'
-import url from '@/photo/背面（原图）.jpg'
 import { SVGData } from './data/SVGData';
+import { getpngService } from './api/service';
+
 const props = defineProps({
   id: Number,
   svg: {
@@ -23,49 +24,56 @@ onMounted(() => {
   getSvgById(props.id);
 });
 //通过id获取svg的路径
-const getSvgById=(Id)=>{
-  let imgId1={
-    imgId : Id
+const getSvgById = (Id) => {
+  let imgId1 = {
+    imgId: Id
   }
   let svgDatas = [];
-  fetch('http://[240c:cd22:138f:dbd:a8e9:781d:f34e:2]:8080/api/GetSVGById' ,{
-        method: 'POST', // 或者 'PUT'
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(imgId1),
-      }
+  fetch('http://[240c:cd22:138f:dbd:a8e9:781d:f34e:2]:8080/api/GetSVGById', {
+    method: 'POST', // 或者 'PUT'
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(imgId1),
+  }
   ) // 替换为你的API URL
 
-      .then(response => response.json())
-      .then(data => {
-        for (let i = 0; i < data.length; i++) {
-          let svgData = new SVGData(
-              JSON.parse(data[i].svgPath).join(''),
-              data[i].id,
-              data[i].svgName,
-              data[i].imageId,
-              data[i].width,
-              data[i].height,
-              data[i].description,
-              false
-          );
-          svgObjects.value.push(svgData);
-        }
-        console.log(data);
-      })
-      .catch(error => {
-        // 在这里处理任何在请求过程中发生的错误
-        console.error('Error:', error);
-      });
+    .then(response => response.json())
+    .then(data => {
+      for (let i = 0; i < data.length; i++) {
+        let svgData = new SVGData(
+          JSON.parse(data[i].svgPath).join(''),
+          data[i].id,
+          data[i].svgName,
+          data[i].imageId,
+          data[i].width,
+          data[i].height,
+          data[i].description,
+          false
+        );
+        svgObjects.value.push(svgData);
+      }
+      console.log(data);
+    })
+    .catch(error => {
+      // 在这里处理任何在请求过程中发生的错误
+      console.error('Error:', error);
+    });
 }
 
-const image_url = ref(url)
+const getimage = async function (id) {
+  let data = await getpngService(id)
+  let image = document.createElement('img');
+  image.src = URL.createObjectURL(data);
+  image_url.value = image.src
+}
 const svgObjects = ref([]);
 const imageSize = ref({ left: 0, top: 0, width: 0, height: 0, realWidth: 0, realHeight: 0, xScale: 1, yScale: 1 });
 const imgRef = ref(null);
+const image_url = ref();
+getimage({ imgId: props.id });
 const activeSVGPaths = computed(() => {
-  return svgObjects.value.filter(svgObj => svgObj.isOn).map(svgObj => svgObj)
+  return svgObjects.value.filter(svgObj => svgObj.isOn).map(svgObj => svgObj.svgPath)
 });
 console.log(activeSVGPaths)
 const visible = ref(false);
@@ -81,7 +89,8 @@ const onMousesvg = (index, event) => {
   // 设置tooltip的位置
   tooltipX.value = event.clientX - childRect.value.left;
   tooltipY.value = event.clientY - childRect.value.top;
-
+  tooltipX.value = event.clientX + 20
+  tooltipY.value = event.clientY - 60
   // 显示tooltip
   visible.value = !visible.value;
 };
@@ -147,17 +156,18 @@ const getSvgCenter = (index) => {
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
     <!-- 渲染tooltip -->
     <div v-if="visible"
-         :style="{ position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block', }">
-      <span :textContent="svgdata.svgName">Tooltip</span>
+      :style="{ position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block', }">
+      <span>你好</span>
     </div>
     <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 1080px 1440px`"
       xmlns="http://www.w3.org/2000/svg"
       :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
 
-      <path v-for="(svgdatas, index) in activeSVGPaths" :key="index" :d="svgdata.svgPath" stroke="black" fill="none" stroke-width="2">
+      <path v-for="(path, index) in activeSVGPaths" :key="index" :d="path" stroke="black" fill="none"
+        stroke-width="2">
       </path>
-      <path v-for="(svgData, index) in svgObjects" :key="`overlay-${index}`" :d="svgData.svgPath" fill="transparent" fill-opacity="0"
-        style="cursor: pointer;" @mouseover="onMousesvg(index, $event)" @mouseout="outMousesvg(index)">
+      <path v-for="(svgData, index) in svgObjects" :key="`overlay-${index}`" :d="svgData.svgPath" fill="transparent"
+        fill-opacity="0" style="cursor: pointer;" @mouseover="onMousesvg(index, $event)" @mouseout="outMousesvg(index)">
       </path>
     </svg>
 
