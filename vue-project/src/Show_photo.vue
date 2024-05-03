@@ -143,20 +143,20 @@ const getSvgCenter = (index) => {
 <template>
   <div ref="child" class="container" :style="{ position: 'relative' }">
     <!-- 渲染图片 -->
-    <img ref="imgRef" :src="image_url" alt="..." width=1250px height=1440px />
+    <img ref="imgRef" :src="image_url" alt="..." width=1080px height=1440px />
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
     <!-- 渲染tooltip -->
     <div v-if="visible"
          :style="{ position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block', }">
       <span :textContent="svgdata.svgName">Tooltip</span>
     </div>
-    <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 1250px 1440px`"
+    <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 1080px 1440px`"
       xmlns="http://www.w3.org/2000/svg"
       :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
 
       <path v-for="(svgdatas, index) in activeSVGPaths" :key="index" :d="svgdata.svgPath" stroke="black" fill="none" stroke-width="2">
       </path>
-      <path v-for="(svgdatas, index) in svgObjects" :key="`overlay-${index}`" :d="svgdata.svgPath" fill="transparent" fill-opacity="0"
+      <path v-for="(svgData, index) in svgObjects" :key="`overlay-${index}`" :d="svgData.svgPath" fill="transparent" fill-opacity="0"
         style="cursor: pointer;" @mouseover="onMousesvg(index, $event)" @mouseout="outMousesvg(index)">
       </path>
     </svg>
