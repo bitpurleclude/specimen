@@ -73,7 +73,7 @@ const imgRef = ref(null);
 const image_url = ref();
 getimage({ imgId: props.id });
 const activeSVGPaths = computed(() => {
-  return svgObjects.value.filter(svgObj => svgObj.isOn).map(svgObj => svgObj.svgPath)
+  return svgObjects.value.filter(svgObj => svgObj.isOn).map(svgObj => svgObj)
 });
 console.log(activeSVGPaths)
 const visible = ref(false);
@@ -156,14 +156,14 @@ const getSvgCenter = (index) => {
     <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
     <!-- 渲染tooltip -->
     <div v-if="visible"
-      :style="{ position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block', }">
-      <span>你好</span>
+      :style="{position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block',color: 'black', }">
+      <span v-for="(svgdata, index) in activeSVGPaths" :key="index" :d="svgdata.svgName">{{ svgdata.svgName }}</span>
     </div>
     <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 1080px 1440px`"
       xmlns="http://www.w3.org/2000/svg"
       :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
 
-      <path v-for="(path, index) in activeSVGPaths" :key="index" :d="path" stroke="black" fill="none"
+      <path v-for="(svgdata, index) in activeSVGPaths" :key="index" :d="svgdata.svgPath" stroke="black" fill="none"
         stroke-width="2">
       </path>
       <path v-for="(svgData, index) in svgObjects" :key="`overlay-${index}`" :d="svgData.svgPath" fill="transparent"
