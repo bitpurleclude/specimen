@@ -29,7 +29,7 @@ const getSvgById = (Id) => {
     imgId: Id
   }
   let svgDatas = [];
-  fetch('http://[240c:cd22:138f:dbd:a8e9:781d:f34e:2]:8080/api/GetSVGById', {
+  fetch('http://localhost:8080/api/GetSVGById', {
     method: 'POST', // 或者 'PUT'
     headers: {
       'Content-Type': 'application/json'
@@ -80,6 +80,7 @@ const visible = ref(false);
 const tooltipX = ref(0);
 const tooltipY = ref(0);
 const onMousesvg = (index, event) => {
+  if(child.value!=null) childRect.value = child.value.getBoundingClientRect();
   svgObjects.value[index].toggle();
 
   if (!child.value) {
@@ -89,8 +90,6 @@ const onMousesvg = (index, event) => {
   // 设置tooltip的位置
   tooltipX.value = event.clientX - childRect.value.left;
   tooltipY.value = event.clientY - childRect.value.top;
-  tooltipX.value = event.clientX + 20
-  tooltipY.value = event.clientY - 60
   // 显示tooltip
   visible.value = !visible.value;
 };
