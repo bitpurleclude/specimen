@@ -125,6 +125,22 @@ const calculateImageSize = (img) => {
   };
 };
 
+const checkAll = ref(false)
+const isIndeterminate = ref(true)
+const checkedCities = ref(['Shanghai', 'Beijing'])
+const cities = ['Shanghai', 'Beijing', 'Guangzhou', 'Shenzhen']
+
+const handleCheckAllChange = (val) => {
+  checkedCities.value = val ? cities : []
+  isIndeterminate.value = false
+}
+const handleCheckedCitiesChange = (value) => {
+  const checkedCount = value.length
+  checkAll.value = checkedCount === cities.length
+  isIndeterminate.value = checkedCount > 0 && checkedCount < cities.length
+}
+
+
 const getImageCenter = () => {
   return {
     x: this.imageSize.width / 2,
@@ -149,34 +165,62 @@ const getSvgCenter = (index) => {
 </script>
 
 <template>
-  <div ref="child" class="container" :style="{ position: 'relative' }">
-    <!-- 渲染图片 -->
-    <img ref="imgRef" :src="image_url" alt="..." width=1080px height=1440px />
-    <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
-    <!-- 渲染tooltip -->
-    <div v-if="visible"
-      :style="{position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block',color: 'black', }">
-      <span v-for="(svgdata, index) in activeSVGPaths" :key="index" :d="svgdata.svgName">{{ svgdata.svgName }}</span>
+  <div class="ALL">
+    <div ref="child" class="container" :style="{ position: 'relative' }">
+      <!-- 渲染图片 -->
+      <img ref="imgRef" :src="image_url" alt="..." width=1080px height=1440px />
+      <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
+      <!-- 渲染tooltip -->
+      <div v-if="visible"
+        :style="{position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block',color: 'black', }">
+        <span v-for="(svgdata, index) in activeSVGPaths" :key="index" :d="svgdata.svgName">{{ svgdata.svgName }}</span>
+      </div>
+      <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 1080px 1440px`" class="svg-overlay"
+        xmlns="http://www.w3.org/2000/svg"
+        :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
+
+        <path v-for="(svgdata, index) in activeSVGPaths" :key="index" :d="svgdata.svgPath" stroke="black" fill="none"
+          stroke-width="2">
+        </path>
+        <path v-for="(svgData, index) in svgObjects" :key="`overlay-${index}`" :d="svgData.svgPath" fill="transparent"
+          fill-opacity="0" style="cursor: pointer;" @mouseover="onMousesvg(index, $event)"
+          @mouseout="outMousesvg(index)">
+        </path>
+      </svg>
     </div>
-    <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 1080px 1440px`"
-      xmlns="http://www.w3.org/2000/svg"
-      :style="{ position: 'absolute', left: `${imageSize.left}px`, top: `${imageSize.top}px` }">
-
-      <path v-for="(svgdata, index) in activeSVGPaths" :key="index" :d="svgdata.svgPath" stroke="black" fill="none"
-        stroke-width="2">
-      </path>
-      <path v-for="(svgData, index) in svgObjects" :key="`overlay-${index}`" :d="svgData.svgPath" fill="transparent"
-        fill-opacity="0" style="cursor: pointer;" @mouseover="onMousesvg(index, $event)" @mouseout="outMousesvg(index)">
-      </path>
-    </svg>
-
+    <div class="select">
+      <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">
+        Check all
+      </el-checkbox>
+      <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+        <el-checkbox v-for="city in cities" :key="city" :label="city" :value="city">
+          {{ city }}
+        </el-checkbox>
+      </el-checkbox-group>
+    </div>
   </div>
 </template>
 
 <style>
+.ALL{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    justify-content: center;
+    align-items: center;
+}
 .container {
+  position:relative;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.select {
+  position: absolute;
+  top: 20px;
+  right: 10px;
 }
 </style>
