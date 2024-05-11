@@ -84,6 +84,8 @@ const onMousesvg = (index, event) => {
   if (child.value != null) childRect.value = child.value.getBoundingClientRect();
   svgObjects.value[index].changeTrue();
   text.value = svgObjects.value[index].svgName;
+  if (svgObjects.value[index].description != null && svgObjects.value[index].svgName.localeCompare(svgObjects.value[index].description) != 0)
+    text.value += '\n' + svgObjects.value[index].description;
   if (!child.value) {
     console.error('Child element is not available');
     return; // 如果元素不可用，则直接返回
@@ -95,8 +97,6 @@ const onMousesvg = (index, event) => {
   visible.value = true;
 };
 const outMousesvg = (index) => {
-  if(Array.isArray(checkedSvg) && checkedSvg.value.includes(index)) console.log('true')
-  else console.log('false')
   svgObjects.value[index].changeFalse();
   visible.value = false;
 };
@@ -218,7 +218,7 @@ const getSvgCenter = (index) => {
       </el-checkbox>
       <el-checkbox-group v-model="checkedSvg" @change="handleCheckedSvgChange">
         <el-checkbox v-for="(svgData, index) in svgObjects" :key="`overlay - ${index}`" :label="svgData.svgName"
-          :value="index">
+          :value="index" class="svg">
           {{ svgData.svgName }}
         </el-checkbox>
       </el-checkbox-group>
@@ -249,5 +249,10 @@ const getSvgCenter = (index) => {
   position: absolute;
   top: 20px;
   right: 10px;
+}
+.svg{
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 </style>
