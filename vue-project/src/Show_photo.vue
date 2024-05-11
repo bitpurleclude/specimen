@@ -195,8 +195,9 @@ const getSvgCenter = (index) => {
       <img ref="imgRef" :src="image_url" alt="..." width=1080px height=1440px />
       <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
       <!-- 渲染tooltip -->
-      <div v-if="visible"
-        :style="{ position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block', color: 'black', }">
+      <div v-if="visible" class="tooltip"
+        :style="{
+          position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block', color: 'black',}">
         <span>{{ text }}</span>
       </div>
       <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 1080px 1440px`" class="svg-overlay"
@@ -254,5 +255,9 @@ const getSvgCenter = (index) => {
   display: flex;
   justify-content: left;
   align-items: center;
+}
+.tooltip {
+  font-size: 20px;
+  background: #2B2B2B;
 }
 </style>
