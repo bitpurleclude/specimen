@@ -1,5 +1,7 @@
 
 export class SVGData {
+  isOn = false;
+  isSelected = false;
 
   constructor(svgPath, id, svgName, ImageId, width, Height, description, initialIsOn = false) {
     this.svgPath = svgPath;
@@ -15,6 +17,14 @@ export class SVGData {
     this.isOn = true;
   }
   changeFalse() {
-    this.isOn = false;
+    this.isOn = this.isSelected;
+  }
+  selectTrue() {
+    this.isSelected = true;
+    this.isOn = true;
+  }
+  selectFalse() {
+        this.isSelected = false;
+        this.isOn = false;
   }
 }

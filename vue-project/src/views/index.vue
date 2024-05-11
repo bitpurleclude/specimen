@@ -12,7 +12,6 @@ import Head from '../Head.vue'
         <Head />
       </el-header>
       <el-container class="lr-divider">
-        <el-aside>Aside</el-aside>
         <el-main>
           <div class="demo-image__preview">
             <Set_photo />

@@ -136,13 +136,13 @@ const selectMotion = ref()
 const handleCheckAllChange = (val) => {
   if (val) {
     for (let i = 0; i < svgObjects.value.length; i++) {
-      svgObjects.value[i].changeTrue();
+      svgObjects.value[i].selectTrue();
     }
     selectMotion.value = true;
   }
   else {
     for (let i = 0; i < svgObjects.value.length; i++) {
-      svgObjects.value[i].changeFalse();
+      svgObjects.value[i].selectFalse();
     }
     selectMotion.value = false;
   }
@@ -152,7 +152,7 @@ const handleCheckedSvgChange = (value) => {
   selectMotion.value = true;
   if (value.length == 0) {
     for (let i = 0; i < svgObjects.value.length; i++) {
-      svgObjects.value[i].changeFalse();
+      svgObjects.value[i].selectFalse();
     }
     selectMotion.value = false;
   }
@@ -160,7 +160,7 @@ const handleCheckedSvgChange = (value) => {
   checkAll.value = checkedCount === svgObjects.value.length
   isIndeterminate.value = checkedCount > 0 && checkedCount < svgObjects.value.length
   for (let i = 0; i < value.length; i++) {
-    svgObjects.value[value[i]].changeTrue();
+    svgObjects.value[value[i]].selectTrue();
   }
 }
 
