@@ -79,10 +79,11 @@ console.log(activeSVGPaths)
 const visible = ref(false);
 const tooltipX = ref(0);
 const tooltipY = ref(0);
+const text = ref();
 const onMousesvg = (index, event) => {
-  if(child.value!=null) childRect.value = child.value.getBoundingClientRect();
-  svgObjects.value[index].toggle();
-
+  if (child.value != null) childRect.value = child.value.getBoundingClientRect();
+  svgObjects.value[index].changeTrue();
+  text.value = svgObjects.value[index].svgName;
   if (!child.value) {
     console.error('Child element is not available');
     return; // 如果元素不可用，则直接返回
@@ -91,11 +92,13 @@ const onMousesvg = (index, event) => {
   tooltipX.value = event.clientX - childRect.value.left;
   tooltipY.value = event.clientY - childRect.value.top;
   // 显示tooltip
-  visible.value = !visible.value;
+  visible.value = true;
 };
 const outMousesvg = (index) => {
-  svgObjects.value[index].toggle();
-  visible.value = !visible.value;
+  if(Array.isArray(checkedSvg) && checkedSvg.value.includes(index)) console.log('true')
+  else console.log('false')
+  svgObjects.value[index].changeFalse();
+  visible.value = false;
 };
 
 const adjustImageSize = () => {
@@ -127,17 +130,38 @@ const calculateImageSize = (img) => {
 
 const checkAll = ref(false)
 const isIndeterminate = ref(true)
-const checkedCities = ref(['Shanghai', 'Beijing'])
-const cities = ['Shanghai', 'Beijing', 'Guangzhou', 'Shenzhen']
+const checkedSvg = ref()
+const selectMotion = ref()
 
 const handleCheckAllChange = (val) => {
-  checkedCities.value = val ? cities : []
+  if (val) {
+    for (let i = 0; i < svgObjects.value.length; i++) {
+      svgObjects.value[i].changeTrue();
+    }
+    selectMotion.value = true;
+  }
+  else {
+    for (let i = 0; i < svgObjects.value.length; i++) {
+      svgObjects.value[i].changeFalse();
+    }
+    selectMotion.value = false;
+  }
   isIndeterminate.value = false
 }
-const handleCheckedCitiesChange = (value) => {
+const handleCheckedSvgChange = (value) => {
+  selectMotion.value = true;
+  if (value.length == 0) {
+    for (let i = 0; i < svgObjects.value.length; i++) {
+      svgObjects.value[i].changeFalse();
+    }
+    selectMotion.value = false;
+  }
   const checkedCount = value.length
-  checkAll.value = checkedCount === cities.length
-  isIndeterminate.value = checkedCount > 0 && checkedCount < cities.length
+  checkAll.value = checkedCount === svgObjects.value.length
+  isIndeterminate.value = checkedCount > 0 && checkedCount < svgObjects.value.length
+  for (let i = 0; i < value.length; i++) {
+    svgObjects.value[value[i]].changeTrue();
+  }
 }
 
 
@@ -172,8 +196,8 @@ const getSvgCenter = (index) => {
       <!-- 渲染SVG，根据imageSize进行缩放和定位 -->
       <!-- 渲染tooltip -->
       <div v-if="visible"
-        :style="{position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block',color: 'black', }">
-        <span v-for="(svgdata, index) in activeSVGPaths" :key="index" :d="svgdata.svgName">{{ svgdata.svgName }}</span>
+        :style="{ position: 'absolute', top: `${tooltipY}px`, left: `${tooltipX}px`, padding: '10px', background: 'white', border: '1px solid black', borderRadius: '5px', display: 'block', color: 'black', }">
+        <span>{{ text }}</span>
       </div>
       <svg :width="imageSize.width" :height="imageSize.height" :view-box="`0 0 1080px 1440px`" class="svg-overlay"
         xmlns="http://www.w3.org/2000/svg"
@@ -190,11 +214,12 @@ const getSvgCenter = (index) => {
     </div>
     <div class="select">
       <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">
-        Check all
+        显示所有
       </el-checkbox>
-      <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-        <el-checkbox v-for="city in cities" :key="city" :label="city" :value="city">
-          {{ city }}
+      <el-checkbox-group v-model="checkedSvg" @change="handleCheckedSvgChange">
+        <el-checkbox v-for="(svgData, index) in svgObjects" :key="`overlay - ${index}`" :label="svgData.svgName"
+          :value="index">
+          {{ svgData.svgName }}
         </el-checkbox>
       </el-checkbox-group>
     </div>
@@ -202,22 +227,24 @@ const getSvgCenter = (index) => {
 </template>
 
 <style>
-.ALL{
-    display: flex;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    justify-content: center;
-    align-items: center;
+.ALL {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  justify-content: center;
+  align-items: center;
 }
+
 .container {
-  position:relative;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .select {
   position: absolute;
   top: 20px;
