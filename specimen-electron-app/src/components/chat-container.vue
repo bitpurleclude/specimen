@@ -93,7 +93,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border: 1px solid #666; /* 添加的边框 */
 }
 .content-area {
   flex-grow: 1;
