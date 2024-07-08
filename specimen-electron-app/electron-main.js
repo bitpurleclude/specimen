@@ -1,7 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
-import url from 'url';
-
+import { fileURLToPath, URL } from 'url'; // 导入 URL 模块
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -13,15 +12,12 @@ function createWindow() {
         },
     });
 
-    // 加载 Vue 应用。如果是开发模式，加载 Vite 服务器的地址；如果是生产模式，加载构建后的 index.html。
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
     const startUrl =
         process.env.NODE_ENV === 'development'
-            ? 'http://localhost:3000' // Vite 默认端口
-            : url.format({
-                pathname: path.join(__dirname, 'dist/index.html'),
-                protocol: 'file:',
-                slashes: true,
-            });
+            ? 'http://localhost:5173' // Vite 默认端口
+            : new URL('dist/index.html', `file://${__dirname}/`).toString(); // 使用 URL 构造函数代替 url.format
     win.loadURL(startUrl);
 }
 
