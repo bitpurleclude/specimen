@@ -5,6 +5,8 @@ import Home from '../views/Home.vue'
 import Profile from '../views/Profile.vue'
 import Anatomy  from "@/views/Anatomy.vue";
 import AlternatingCurrent from "@/views/AlternatingCurrent.vue";
+import RealSample from "../views/RealSample.vue";
+import sport from "../views/Sport.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +28,8 @@ const router = createRouter({
         { path: 'alternating-current', name: 'discover-alternating-current', component: AlternatingCurrent }
       ]},
     { path: '/profile', name: 'profile', component: Profile },
+    {path: '/realSample', name: 'realSample', component: RealSample},
+    {path: '/sport', name: 'sport', component: sport},
   ]
 })
 
