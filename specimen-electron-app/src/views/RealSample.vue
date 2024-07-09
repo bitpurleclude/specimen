@@ -1,14 +1,14 @@
 <template>
   <div class="top-bar">真实样本</div>
-<TopNav :nav-items="navItems" :current-selected="currentSelected" class="nav"/>
-<!--  <RouterView />-->
-  <specimendisplay url="/src/assets/photo/ganzang.jpg" name="肝脏"/>
+  <TopNav :nav-items="navItems" :current-selected="currentSelected" class="nav"/>
+  <RouterView/>
 </template>
-<script >
+<script>
 import TopNav from "@/components/top-nav.vue";
 import specimendisplay from "@/components/specimen-display.vue";
-import { RouterView } from "vue-router";
+import {RouterView} from "vue-router";
 import {onMounted, ref} from "vue";
+
 export default {
   components: {
     TopNav,
@@ -40,13 +40,14 @@ export default {
       selectedNav
     };
   }
-  }
+}
 </script>
 <style scoped>
-.nav{
+.nav {
   margin-top: 50px;
 
 }
+
 .top-bar {
   display: flex;
   justify-content: center;

@@ -44,14 +44,13 @@ export default {
 .img {
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   overflow: hidden;
   margin-bottom: 10px;
+  border-radius: 10px;
 }
 .img img{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 </style>
