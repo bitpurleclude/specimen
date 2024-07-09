@@ -1,11 +1,21 @@
 <template>
   <div class="profile-container">
     <header class="profile-header">
-      <div class="avatar-placeholder">Avatar</div>
+      <div class="avatar-placeholder">
+        <img src="../assets/photo/touxiang.jpg" alt="Feature"/>
+      </div>
       <div class="user-info">
-        <p>万康人体解剖ID: liNuuuSr</p>
+        <p class="name">姓名</p>
+        <p class="school">学校</p>
       </div>
     </header>
+    <section class="membership">
+      <div class="membership-info">
+        开通解剖会员<br/>
+        升级会员立享所有付费功能
+      </div>
+      <div class="membership-price">最低 0.1 / 天</div>
+    </section>
     <section class="menu">
       <div class="menu-item">收藏</div>
       <div class="menu-item">成绩与错题</div>
@@ -40,6 +50,21 @@ export default {
   padding: 20px;
   width: 100%;
   background-color: #34495e;
+  justify-content: flex-start;
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .school {
+      font-size: 16px;
+    }
+  }
 }
 
 .avatar-placeholder {
@@ -53,9 +78,33 @@ export default {
   margin-right: 10px;
 }
 
-.user-info {
+.avatar-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 使用 cover 可以保持图片的宽高比 */
+  border-radius: 50%; /* 使图片变为圆形 */
+}
+
+.membership {
+  width: 90%;
+  background-color: #f39c12;
+  color: #2c3e50;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px 0;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.membership-info {
+  flex-grow: 1;
+}
+
+.membership-price {
+  background-color: #e67e22;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .menu {
