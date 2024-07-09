@@ -11,7 +11,7 @@
         <div class="description">欢迎关注微信公众号</div>
       </section>
       <section class="content-grid">
-        <div class="grid-item">
+        <div class="grid-item" @click="onClick">
           <div class="image-placeholder-left">
             <img src="../assets/photo/qugan.png" alt="Feature" style="height: 100%;width:300%;: contain"/>
           </div>
@@ -51,6 +51,11 @@ import "@/assets/icon/iconfont.js"
 import icon from "@/components/icon.vue";
 
 export default {
+  methods: {
+    onClick() {
+      this.$router.push({ name: 'realSample' });
+    }
+  },
   components: {
     icon
   },
