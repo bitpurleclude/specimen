@@ -5,38 +5,51 @@
     </header>
     <main>
       <section class="feature">
-        <div class="image-placeholder">Image Placeholder</div>
-        <div class="description">手术模拟-椎间盘置换</div>
+        <div class="image-placeholder">
+          <img src="../assets/photo/huodong.jpg" alt="Feature"/>
+        </div>
+        <div class="description">欢迎关注微信公众号</div>
       </section>
       <section class="content-grid">
         <div class="grid-item">
           <div class="image-placeholder">真实图片</div>
           <div class="label">真实标本</div>
         </div>
-        <div class="grid-item">
-          <div class="image-placeholder">虚拟图片/div>
+        <div class="right">
+          <div class="grid-item" style="margin-bottom: 5px">
+            <div class="image-placeholder">
+              <img src="../assets/photo/xunni.jpg" alt="Feature"/>
+            </div>
             <div class="label">虚拟标本</div>
+          </div>
+          <div class="grid-item">
             <div class="image-placeholder">肝脏图片</div>
             <div class="label">病理变化</div>
           </div>
         </div>
       </section>
       <section class="icon-grid">
-        <div class="icon-item">微观解剖</div>
-        <div class="icon-item">肌肉运动</div>
-        <div class="icon-item">断层解剖</div>
-        <div class="icon-item">医学动画</div>
-        <div class="icon-item">口腔解剖</div>
-        <div class="icon-item">肌肉供血</div>
-        <div class="icon-item">神经支配</div>
-        <div class="icon-item">解剖测验</div>
+        <icon Icon="yixueyingxiangke" text="影像"></icon>
+        <icon Icon="zhongyike" text="中医"></icon>
+        <icon Icon="kouqiangke" text="口腔"></icon>
+        <icon Icon="shoushu" text="互动手术"></icon>
+        <icon Icon="shenjing" text="神经支配"></icon>
+        <icon Icon="xieye" text="血液循环"></icon>
+        <icon Icon="jirou" text="肌肉运动"></icon>
+        <icon Icon="renshenpregnancy" text="妊娠过程"></icon>
       </section>
     </main>
   </div>
 </template>
 
 <script>
+import "@/assets/icon/iconfont.js"
+import icon from "@/components/icon.vue";
+
 export default {
+  components: {
+    icon
+  },
   name: 'App'
 }
 </script>
@@ -75,12 +88,17 @@ main {
 }
 
 .image-placeholder {
-  width: 100%;
   height: 150px;
   background-color: #bdc3c7;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .description {
@@ -101,6 +119,11 @@ main {
   background-color: #ecf0f1;
   padding: 10px;
   border-radius: 10px;
+
+  .right {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .label {
@@ -114,15 +137,6 @@ main {
   margin-top: 20px;
 }
 
-.icon-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ecf0f1;
-  padding: 10px;
-  border-radius: 10px;
-}
-
 footer {
   display: flex;
   justify-content: space-around;
@@ -130,7 +144,4 @@ footer {
   background-color: #2c3e50;
 }
 
-.footer-item {
-  color: white;
-}
 </style>
