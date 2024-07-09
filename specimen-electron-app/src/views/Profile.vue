@@ -36,8 +36,8 @@ export default {
 <style>
 .profile-container {
   font-family: Arial, sans-serif;
-  background-color: #2c3e50;
-  color: #ecf0f1;
+  background-color: #ecf0f1;
+  color: black;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -45,11 +45,12 @@ export default {
 }
 
 .profile-header {
+  border-bottom: 1px solid #bdc3c7;
   display: flex;
   align-items: center;
   padding: 20px;
   width: 100%;
-  background-color: #34495e;
+  background-color: #ecf0f1;
   justify-content: flex-start;
 
   .user-info {
@@ -88,7 +89,7 @@ export default {
 .membership {
   width: 90%;
   background-color: #f39c12;
-  color: #2c3e50;
+  color: #ecf0f1;
   padding: 15px;
   border-radius: 10px;
   margin: 10px 0;
@@ -116,7 +117,8 @@ export default {
 }
 
 .menu-item {
-  background-color: #34495e;
+  border: 1px solid black;
+  background-color: #ecf0f1;
   padding: 15px;
   border-radius: 10px;
   display: flex;
