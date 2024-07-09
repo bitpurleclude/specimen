@@ -5,14 +5,16 @@
     </header>
     <main>
       <section class="feature">
-        <div class="image-placeholder">
-          <img src="../assets/photo/huodong.jpg" alt="Feature"/>
+        <div class="image-placeholder-top">
+          <img src="../assets/photo/huodong.jpg" alt="Feature" style="height: 100%; object-fit: contain"/>
         </div>
         <div class="description">欢迎关注微信公众号</div>
       </section>
       <section class="content-grid">
         <div class="grid-item">
-          <div class="image-placeholder">真实图片</div>
+          <div class="image-placeholder-left">
+            <img src="../assets/photo/qugan.png" alt="Feature" style="height: 100%;width:300%;: contain"/>
+          </div>
           <div class="label">真实标本</div>
         </div>
         <div class="right">
@@ -23,7 +25,9 @@
             <div class="label">虚拟标本</div>
           </div>
           <div class="grid-item">
-            <div class="image-placeholder">肝脏图片</div>
+            <div class="image-placeholder">
+              <img src="../assets/photo/ganzang.jpg" alt="Feature"/>
+            </div>
             <div class="label">病理变化</div>
           </div>
         </div>
@@ -87,7 +91,8 @@ main {
   margin-bottom: 10px;
 }
 
-.image-placeholder {
+.image-placeholder-top {
+  width: 200px;
   height: 150px;
   background-color: #bdc3c7;
   display: flex;
@@ -95,10 +100,30 @@ main {
   align-items: center;
 }
 
+.image-placeholder-left {
+  width: 100px;
+  height: 340px;
+  background-color: #bdc3c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.image-placeholder {
+  width: 150px;
+  height: 150px;
+  background-color: #bdc3c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .image-placeholder img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
 }
 
 .description {

@@ -7,12 +7,12 @@
       </div>
     </header>
     <section class="menu">
-      <div class="menu-item">我的收藏</div>
-      <div class="menu-item">微信交流群</div>
-      <div class="menu-item">QQ交流群</div>
-      <div class="menu-item">客服微信</div>
-      <div class="menu-item">反馈建议</div>
-      <div class="menu-item">其他设置</div>
+      <div class="menu-item">收藏</div>
+      <div class="menu-item">成绩与错题</div>
+      <div class="menu-item">机构</div>
+      <div class="menu-item">企业认证</div>
+      <div class="menu-item">帮助与反馈</div>
+      <div class="menu-item">版本信息</div>
     </section>
   </div>
 </template>
