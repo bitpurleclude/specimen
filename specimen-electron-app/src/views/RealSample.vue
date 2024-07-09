@@ -1,7 +1,7 @@
 <template>
   <div class="top-bar">真实样本</div>
 <TopNav :nav-items="navItems" :current-selected="currentSelected" class="nav"/>
-<!--  <RouterView />-->
+  <RouterView />
   <specimendisplay url="/src/assets/photo/ganzang.jpg" name="肝脏"/>
 </template>
 <script >
