@@ -5,8 +5,10 @@
     </header>
     <main>
       <section class="feature">
-        <div class="image-placeholder">Image Placeholder</div>
-        <div class="description">手术模拟-椎间盘置换</div>
+        <div class="image-placeholder">
+          <img src="../assets/photo/huodong.jpg" alt="Feature"/>
+        </div>
+        <div class="description">欢迎关注微信公众号</div>
       </section>
       <section class="content-grid">
         <div class="grid-item">
@@ -15,7 +17,9 @@
         </div>
         <div class="right">
           <div class="grid-item" style="margin-bottom: 5px">
-            <div class="image-placeholder">虚拟图片</div>
+            <div class="image-placeholder">
+              <img src="../assets/photo/xunni.jpg" alt="Feature"/>
+            </div>
             <div class="label">虚拟标本</div>
           </div>
           <div class="grid-item">
@@ -84,12 +88,17 @@ main {
 }
 
 .image-placeholder {
-  width: 100%;
   height: 150px;
   background-color: #bdc3c7;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .description {
