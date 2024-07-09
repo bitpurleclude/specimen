@@ -1,8 +1,8 @@
 
 
 <template>
-  <BottomNav/>
   <RouterView />
+  <BottomNav/>
 </template>
 <script>
 import { RouterView } from 'vue-router'

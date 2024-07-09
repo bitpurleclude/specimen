@@ -1,0 +1,65 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "500681",
+      "name": "妊娠_pregnancy",
+      "font_class": "renshenpregnancy",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "4470435",
+      "name": "血液",
+      "font_class": "xieye",
+      "unicode": "e6b2",
+      "unicode_decimal": 59058
+    },
+    {
+      "icon_id": "5961430",
+      "name": "神经",
+      "font_class": "shenjing",
+      "unicode": "ec6f",
+      "unicode_decimal": 60527
+    },
+    {
+      "icon_id": "10056238",
+      "name": "手术",
+      "font_class": "shoushu",
+      "unicode": "e704",
+      "unicode_decimal": 59140
+    },
+    {
+      "icon_id": "11043261",
+      "name": "口腔科",
+      "font_class": "kouqiangke",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "11043277",
+      "name": "医学影像科",
+      "font_class": "yixueyingxiangke",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "11043290",
+      "name": "中医科",
+      "font_class": "zhongyike",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "38337092",
+      "name": "肌肉",
+      "font_class": "jirou",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    }
+  ]
+}

@@ -10,7 +10,7 @@
 export default {
   data() {
     return {
-      currentSelected: '', // 存储当前选中的路由名称
+      currentSelected: 'home', // 存储当前选中的路由名称
       navItems: [
         { name: '首页', route: 'home' },
         { name: '学习', route: 'learn' },
