@@ -51,6 +51,7 @@ export default {
   background-color: #f0f0f0;
   cursor: pointer;
   border-radius: 4px;
+  font-size: 20px;
 }
 
 .icon-button:hover {

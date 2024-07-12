@@ -44,7 +44,7 @@ export default {
   min-height: 140px; /* 设置一个最小高度 */
   display: flex; /* 使用flex布局 */
   justify-content: space-between; /* 文本和图标分布在两侧 */
-  font-size: 15px;
+  font-size: 20px;
 }
 .component-wrapper {
   display: flex; /* 使用flex布局 */
