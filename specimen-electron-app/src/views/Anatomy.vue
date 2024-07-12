@@ -1,6 +1,6 @@
 <template>
   <div class="component-wrapper" :style="{ marginTop: marginTop }">
-    <componentWrapper v-for="(item, index) in items" :key="index" :text="item.text" :icon="item.iconClass"/>
+    <componentWrapper v-for="(item, index) in items" :key="index" :text="item.text" :icon="item.iconClass" style="margin-bottom: 40px"/>
     <GameContainer>
       <img-bottom :icon="['fas', 'gamepad']" text="解趣坊" class="icon-button1"/>
       <img-bottom :src="src1" text="智剖界"  class="icon-button2"/>

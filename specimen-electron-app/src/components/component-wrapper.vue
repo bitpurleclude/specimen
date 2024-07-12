@@ -41,9 +41,10 @@ export default {
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: calc(100% - 20px); /* 调整宽度以考虑两侧的外边距 */
-  min-height: 100px; /* 设置一个最小高度 */
+  min-height: 140px; /* 设置一个最小高度 */
   display: flex; /* 使用flex布局 */
   justify-content: space-between; /* 文本和图标分布在两侧 */
+  font-size: 15px;
 }
 .component-wrapper {
   display: flex; /* 使用flex布局 */

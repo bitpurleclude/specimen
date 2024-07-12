@@ -47,8 +47,11 @@ export default {
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: calc(100% - 20px); /* Adjust width for margin */
-  min-height: 100px; /* Minimum height of the container */
+  min-height: 140px; /* Minimum height of the container */
   flex-wrap: wrap; /* Allow children to wrap if needed */
+  margin-bottom: 40px;
+  font-size: 15px;
+
 }
 
 .dynamic-container {
