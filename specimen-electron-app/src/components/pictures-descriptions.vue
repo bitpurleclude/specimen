@@ -4,7 +4,7 @@
       <img :src="Url" alt="specimen"/>
     </div>
     <!--固定一块区域用于显示文本，避免因为文本长度不同导致图片位置被改变-->
-    <div style="width: 100px;">
+    <div style="width: 100px; font-size: 20px">
       <p>{{ Name }}</p>
     </div>
   </div>
