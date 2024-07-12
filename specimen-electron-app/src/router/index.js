@@ -28,8 +28,9 @@ const router = createRouter({
         { path: 'alternating-current', name: 'discover-alternating-current', component: AlternatingCurrent }
       ]},
     { path: '/profile', name: 'profile', component: Profile },
-    {path: '/realSample', name: 'realSample', component: RealSample},
-    {path: '/sport', name: 'sport', component: sport},
+    {path: '/realSample', name: 'realSample', component: RealSample,children: [
+        {path: '/sport', name: 'sport', component: sport}
+      ]},
   ]
 })
 

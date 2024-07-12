@@ -1,6 +1,7 @@
 <script>
 import specimendisplay from "@/components/specimen-display.vue";
 import TopNav from "@/components/top-nav.vue";
+
 export default {
   components: {
     specimendisplay,
@@ -10,15 +11,27 @@ export default {
 </script>
 
 <template>
-  <section>
     <div class="top-bar">运动系统</div>
     <TopNav :nav-items="navItems" :current-selected="currentSelected" class="nav"/>
-    <specimendisplay url="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" name="树"/>
-    <specimendisplay url="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" name="树"/>
-    <specimendisplay url="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" name="树"/>
-  </section>
+    <!-- 设置每行两个specimendisplay组件，一共三行，使用section，不使用v-for -->
+    <section class="hang">
+        <specimendisplay url="/src/assets/photo/xi.jpg" name="膝"/>
+        <specimendisplay url="/src/assets/photo/zhou.jpg" name="肘"/>
+    </section>
+    <section class="hang">
+        <specimendisplay url="/src/assets/photo/jian.jpg" name="肩"/>
+        <specimendisplay url="/src/assets/photo/huai.jpg" name="踝"/>
+    </section>
+    <section class="hang">
+        <specimendisplay url="/src/assets/photo/zu.jpg" name="足"/>
+        <specimendisplay url="/src/assets/photo/gugu.jpg" name="股骨"/>
+    </section>
 </template>
 
 <style scoped>
-
+.hang{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
 </style>
