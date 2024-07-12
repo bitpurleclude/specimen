@@ -15,12 +15,12 @@ export default {
     <TopNav :nav-items="navItems" :current-selected="currentSelected" class="nav"/>
     <!-- 设置每行两个specimendisplay组件，一共三行，使用section，不使用v-for -->
     <section class="hang">
-        <specimendisplay url="/src/assets/photo/xi.jpg" name="膝"/>
-        <specimendisplay url="/src/assets/photo/zhou.jpg" name="肘"/>
+        <specimendisplay url="/src/assets/photo/xi.jpg" name="膝关节"/>
+        <specimendisplay url="/src/assets/photo/zhou.jpg" name="肘关节"/>
     </section>
     <section class="hang">
-        <specimendisplay url="/src/assets/photo/jian.jpg" name="肩"/>
-        <specimendisplay url="/src/assets/photo/huai.jpg" name="踝"/>
+        <specimendisplay url="/src/assets/photo/jian.jpg" name="肩关节"/>
+        <specimendisplay url="/src/assets/photo/huai.jpg" name="踝关节"/>
     </section>
     <section class="hang">
         <specimendisplay url="/src/assets/photo/zu.jpg" name="足"/>

@@ -1,5 +1,5 @@
 <template>
-  <div class="top-bar">真实样本</div>
+  <div class="top-bar">真实标本</div>
 <TopNav :nav-items="navItems" :current-selected="currentSelected" class="nav"/>
   <RouterView />
 </template>
