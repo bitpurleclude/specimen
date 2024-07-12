@@ -40,13 +40,14 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 20px;
+  border-radius: 10px;
+  border: 1px solid #bdc3c7;
 }
 .img {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   overflow: hidden;
   margin-bottom: 10px;
-  border-radius: 10px;
 }
 .img img{
   width: 100%;

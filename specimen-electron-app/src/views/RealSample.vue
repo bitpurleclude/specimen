@@ -1,7 +1,7 @@
 <template>
   <div class="top-bar">真实样本</div>
-  <TopNav :nav-items="navItems" :current-selected="currentSelected" class="nav"/>
-  <RouterView/>
+<TopNav :nav-items="navItems" :current-selected="currentSelected" class="nav"/>
+  <RouterView />
 </template>
 <script>
 import TopNav from "@/components/top-nav.vue";
